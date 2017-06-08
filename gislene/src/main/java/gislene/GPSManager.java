@@ -120,7 +120,13 @@ public class GPSManager {
     	statement.executeUpdate("DELETE FROM SqlData WHERE IDsql = '" + ID + "'");
     	InsertSQL(ID, newSQL);
     }
-    
+    //PQP CUIDADO COM ISSO, NAO APAGUE A TABELA SEM QUERER PF
+    void deleteEVERYTHINGSqlData() throws SQLException{
+    	statement.executeUpdate("DELETE FROM SqlData");
+    }
+    void deleteEVERYTHINGSObjetos() throws SQLException{
+    	statement.executeUpdate("DELETE FROM Objetos");
+    }
     void DeleteObjectFromUserInput (Scanner scanner) throws SQLException
     {
     	String Nome = "";
@@ -135,7 +141,7 @@ public class GPSManager {
     //Esta função mostra os registros da Tabela Clientes na tela.
     void Show_RegisteredObjects () throws SQLException
     {
-        resultSet = statement.executeQuery("SELECT * FROM Objetos");
+        resultSet = this.getRegisteredObjects();
         System.out.println("Printando conteúdo!");
         
         while (resultSet.next())
@@ -147,12 +153,13 @@ public class GPSManager {
         }
         System.out.println("Termino de Print");
     }
-    
+    ResultSet getRegisteredObjects() throws SQLException{
+    	return statement.executeQuery("SELECT * FROM Objetos");
+    }
     void Show_RegisteredSQL () throws SQLException
     {
-        resultSet = statement.executeQuery("SELECT * FROM SqlData");
+        resultSet = this.getSQLresultset();
         System.out.println("Printando conteúdo!");
-        
         while (resultSet.next())
         {
             System.out.println( "ID do BD: "         + resultSet.getString("ObjetoID") + " " +
@@ -161,7 +168,9 @@ public class GPSManager {
         }
         System.out.println("Termino de Print");
     }
-    
+    ResultSet getSQLresultset() throws SQLException{
+    	return statement.executeQuery("SELECT * FROM SqlData");
+    }
     String GetSQLCodeFromID (String id) throws SQLException {
     	resultSet = statement.executeQuery("SELECT * FROM SqlData WHERE IDsql = " + id);
     	return resultSet.getString("SQLcd");
