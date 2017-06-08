@@ -11,14 +11,14 @@ public class EmailSender {
     {
        
         GPSManager DBM = new GPSManager();
-        DBM.CreateDatabase("objetos");   
+        DBM.CreateDatabase("objetos3");   
        
         Scanner scanner = new Scanner(System.in);
        
         try
         {
             
-        	DBM = new GPSManager("objetos.fdb");
+        	/*DBM = new GPSManager("objetos2.fdb");
        
             DBM.CreateObjectsTable();
             DBM.AddGenerator();
@@ -28,13 +28,27 @@ public class EmailSender {
        
             DBM.Show_RegisteredObjects();
             
+            DBM.DeleteObjectFromUserInput(scanner);
+            
+            DBM.Show_RegisteredObjects();*/
+        	DBM = new GPSManager("objetos3.fdb");
+            
+            //DBM.CreateSQLTable();
+            //DBM.AddGenerator();
+            //DBM.AddTrigger_Atualizar_Data();
+       
+            DBM.InsertSQL("Mouris, The Myth", "Minha sql importante");
+       
+            DBM.Show_RegisteredSQL();
+            
+            DBM.EditSQL("Mouris, The Myth", "Chupa JUnit");
+            
+            DBM.Show_RegisteredSQL();
         }
         catch (SQLException e)
         {
             System.out.println(e);
         }
-        
-       
     }
    
    

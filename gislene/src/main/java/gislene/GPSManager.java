@@ -18,7 +18,7 @@ public class GPSManager {
    
     void CreateDatabase (String Name)
     {
-        FBManager manager = new FBManager(  GDSType.getType("TYPE4"));
+        FBManager manager = new FBManager(GDSType.getType("TYPE4"));
         
         try
         {
@@ -61,6 +61,15 @@ public class GPSManager {
                                    "Data TIMESTAMP )    " );              
         System.out.println("TABELA ADICIONADA");
     }
+    
+    void CreateSQLTable () throws SQLException {
+    	int sizeSQL = 255;
+    	statement.executeUpdate("CREATE TABLE SqlData (                 " +
+                "ObjetoID INT NOT NULL PRIMARY KEY,  " +
+                "IDsql VARCHAR(" + sizeSQL + "),                  " +
+                "SQLcd BLOB SUB_TYPE TEXT )");              
+    	System.out.println("TABELA ADICIONADA");
+    }
    
     //Esta função acrescenta o Generator "Gerador"
     void AddGenerator () throws SQLException
@@ -77,6 +86,11 @@ public class GPSManager {
                                 "BEGIN                                                              " +
                                 "     NEW.Data = CURRENT_TIMESTAMP;                                    " +
                                 "END                                                                ");
+        statement.executeUpdate("CREATE TRIGGER ATUALIZAR_DATA FOR SqlData BEFORE INSERT OR UPDATE " +
+        						"AS                                                                 " +
+        						"BEGIN                                                              " +
+        						"     NEW.Data = CURRENT_TIMESTAMP;                                    " +
+                				"END                                                                ");
         System.out.println("TRIGGER ADICIONADA");
     }
    
@@ -93,13 +107,37 @@ public class GPSManager {
             Coordenadas = scanner.nextLine();
 
         statement.executeUpdate("INSERT INTO Objetos (ObjetoID, Nome, Coordenadas) VALUES (GEN_ID(Gerador,1) ,  '" + Nome + "', '" + Coordenadas + "')");
-       
+        
+    }
+    
+    void InsertSQL (String id, String SQLcode) throws SQLException {
+    	System.out.println("Inserindo SQL Code");
+    	
+    	statement.executeUpdate("INSERT INTO SqlData (ObjetoID, IDsql, SQLcd) VALUES (GEN_ID(Gerador,1) ,  '" + id + "', '" + SQLcode + "')");
+    }
+    
+    void EditSQL (String ID, String newSQL) throws SQLException {
+    	statement.executeUpdate("DELETE FROM SqlData WHERE IDsql = '" + ID + "'");
+    	InsertSQL(ID, newSQL);
+    }
+    
+    void DeleteObjectFromUserInput (Scanner scanner) throws SQLException
+    {
+    	String Nome = "";
+    	
+    	System.out.println("Digite o Nome do Objeto a ser deletado:");
+        while (Nome.isEmpty())
+            Nome = scanner.nextLine();
+    	
+        statement.executeUpdate("DELETE FROM Objetos WHERE Nome = '" + Nome + "'");
     }
    
     //Esta função mostra os registros da Tabela Clientes na tela.
     void Show_RegisteredObjects () throws SQLException
     {
         resultSet = statement.executeQuery("SELECT * FROM Objetos");
+        System.out.println("Printando conteúdo!");
+        
         while (resultSet.next())
         {
             System.out.println( "ID: "         + resultSet.getString("ObjetoID") + " " +
@@ -107,6 +145,26 @@ public class GPSManager {
                                 "Coordenadas: "    + resultSet.getString("Coordenadas")     + " " +
                                 "Data: "    + resultSet.getTimestamp("Data").toString() );
         }
+        System.out.println("Termino de Print");
+    }
+    
+    void Show_RegisteredSQL () throws SQLException
+    {
+        resultSet = statement.executeQuery("SELECT * FROM SqlData");
+        System.out.println("Printando conteúdo!");
+        
+        while (resultSet.next())
+        {
+            System.out.println( "ID do BD: "         + resultSet.getString("ObjetoID") + " " +
+                                "IDsql: "     + resultSet.getString("IDsql")      + " " +
+                                "SQLCode: "    + resultSet.getString("SQLcd") );
+        }
+        System.out.println("Termino de Print");
+    }
+    
+    String GetSQLCodeFromID (String id) throws SQLException {
+    	resultSet = statement.executeQuery("SELECT * FROM SqlData WHERE IDsql = " + id);
+    	return resultSet.getString("SQLcd");
     }
    
     void Disconnect () throws SQLException
@@ -118,3 +176,4 @@ public class GPSManager {
     }
        
 }
+
