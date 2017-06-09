@@ -1,5 +1,5 @@
 package Integration;
 
-public class Type {
+public abstract class Type {
 
 }

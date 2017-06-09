@@ -7,14 +7,23 @@ import java.util.Scanner;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.sql.ResultSet;
+
+import org.junit.Before;
 import org.junit.Test;
 
 public class testesBD {
 	
+	GPSManager DBM;
+	
+	@Before
+	public void init () {
+		
+	}
 	
 	@Test
 	public void testInsertSQLeEditar() throws SQLException {
 		GPSManager DBM = new GPSManager("objetos3.fdb");
+		DBM.CreateDatabase("objetos3");
 		DBM.deleteEVERYTHINGSqlData();
 		DBM.InsertSQL("IDsql1", "SQLCode1");
 	    ResultSet resultSet = DBM.getSQLresultset();
@@ -49,6 +58,7 @@ public class testesBD {
 	 	System.setIn(stdin);
 		 
 		GPSManager DBM = new GPSManager("objetos.fdb");
+		DBM.CreateDatabase("objetos");
 		DBM.deleteEVERYTHINGSObjetos();
 
         DBM.InsertObjetoFromUserInput(scanner);
