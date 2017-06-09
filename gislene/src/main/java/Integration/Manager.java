@@ -12,6 +12,7 @@ public class Manager {
 	public Manager() throws IOException{
 		DB = (new DataBaseCommFactory(DBKey)).getDataBaseComm();
 		UI = (new DataUIInterpreterFactory(UIKey)).getDataUIInterpreter();
+		DB.initiateDataBaseComm();
 	}
 	
 	public boolean isValidChange(){

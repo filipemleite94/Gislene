@@ -23,9 +23,9 @@ public class EmailSender {
             
         	DBM = new GPSManager("objetos.fdb");
         	
-            DBM.CreateObjectsTable();
+            /*DBM.CreateObjectsTable();
             DBM.AddGenerator();
-            DBM.AddTrigger_Atualizar_Data();
+            DBM.AddTrigger_Atualizar_Data();*/
        
             DBM.InsertObjetoFromUserInput(scanner);
        
