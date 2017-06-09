@@ -1,0 +1,17 @@
+gislene/EmailSender.class
+Integration/Manager.class
+Integration/Type.class
+Integration/Category.class
+Integration/JSONInterpreter.class
+Integration/FireBirdComm.class
+Integration/Property.class
+gislene/testesBD.class
+Integration/PropertyType.class
+gislene/GPSManager.class
+Integration/Validator.class
+Integration/IDataUIInterpreter.class
+Integration/DataBaseCommFactory.class
+Integration/Object.class
+Integration/JSONParser.class
+Integration/IDataBaseComm.class
+Integration/DataUIInterpreterFactory.class
