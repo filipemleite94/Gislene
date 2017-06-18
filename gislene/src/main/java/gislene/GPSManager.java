@@ -33,13 +33,13 @@ public class GPSManager {
         
     }
    
-    GPSManager()
+    public GPSManager()
     {
        
     }
    
     //Esta função é o construtor de DBManager: se conecta a <database>
-    GPSManager (String database) throws SQLException
+    public GPSManager (String database) throws SQLException
     {
         connection = DriverManager.getConnection("jdbc:firebirdsql:localhost:c:\\Kabart\\" + database, "sysdba", "masterkey");
         //connection = DriverManager.getConnection("jdbc:firebirdsql:" + database, "sysdba", "master");

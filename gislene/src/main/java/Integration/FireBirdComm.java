@@ -1,7 +1,16 @@
 package Integration;
 
-public class FireBirdComm implements IDataBaseComm {
+import gislene.GPSManager;
 
+public class FireBirdComm implements IDataBaseComm {
+	GPSManager firebirdDB;
+	String DBName = "Gislene";
+	
+	public FireBirdComm(){
+		firebirdDB = new GPSManager();
+		
+	}
+	
 	public void initiateDataBaseComm() {
 		
 	}

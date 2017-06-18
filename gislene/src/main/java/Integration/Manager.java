@@ -13,6 +13,7 @@ public class Manager {
 		DB = (new DataBaseCommFactory(DBKey)).getDataBaseComm();
 		UI = (new DataUIInterpreterFactory(UIKey)).getDataUIInterpreter();
 		DB.initiateDataBaseComm();
+		UI.initiateUIInterpreter();
 	}
 	
 	public boolean isValidChange(){
