@@ -9,12 +9,12 @@ import org.junit.Test;
 import org.mockito.Mockito;
 
 import AOM.PropertyType;
-import AOM.PropertyTypeContainer;
-import AOM.PropertyTypeListener;
+import AOM.TypePatternContainer;
+import AOM.TypePatternListener;
 
 public class PropertyTypeContainerTests {
 	
-	private class MockPropertyTypeContainer extends PropertyTypeContainer{
+	private class MockPropertyTypeContainer extends TypePatternContainer{
 
 		public MockPropertyTypeContainer(String name) {
 			super(name);
@@ -34,7 +34,7 @@ public class PropertyTypeContainerTests {
 	@Test
 	public void testCreation() {
 		 assertEquals("Mock", pTypeContainer.getName());
-		 assertEquals(0,  pTypeContainer.getPropertiesType().size());
+		 assertEquals(0,  pTypeContainer.getPropertyTypes().size());
 	}
 	
 	@Test
@@ -42,12 +42,12 @@ public class PropertyTypeContainerTests {
 		PropertyType pType = Mockito.mock(PropertyType.class);
 		PropertyType pType2 = Mockito.mock(PropertyType.class);
 		pTypeContainer.addPropertyType(pType);
-		assertEquals(pType, pTypeContainer.getPropertiesType().get(0));
+		assertEquals(true, pTypeContainer.getPropertyTypes().contains(pType));
 		pTypeContainer.addPropertyType(pType2);
-		assertEquals(pType2, pTypeContainer.getPropertiesType().get(1));
-		assertEquals(2, pTypeContainer.getPropertiesType().size());
+		assertEquals(true, pTypeContainer.getPropertyTypes().contains(pType2));
+		assertEquals(2, pTypeContainer.getPropertyTypes().size());
 		pTypeContainer.removePropertyType(pType);
-		assertEquals(pType2, pTypeContainer.getPropertiesType().get(0));
+		assertEquals(true, pTypeContainer.getPropertyTypes().contains(pType2));
 		try{
 			pTypeContainer.removePropertyType(pType);
 		} catch(IOException e){
@@ -57,15 +57,20 @@ public class PropertyTypeContainerTests {
 	
 	@Test
 	public void testManagingListeneter() throws IOException{
-		PropertyTypeListener listener = Mockito.mock(PropertyTypeListener.class);
-		PropertyTypeListener listener2 = Mockito.mock(PropertyTypeListener.class);
+		TypePatternListener listener = Mockito.mock(TypePatternListener.class);
+		TypePatternListener listener2 = Mockito.mock(TypePatternListener.class);
 		pTypeContainer.addListener(listener);
-		assertEquals(listener, pTypeContainer.getPropertyTypeListeners().get(0));
+		try{
+			pTypeContainer.addListener(listener);
+		}catch(IOException e){
+			assertEquals("Listener ja existe", e.getMessage());
+		}
+		assertEquals(true, pTypeContainer.getTypeListeners().contains(listener));
 		pTypeContainer.addListener(listener2);
-		assertEquals(listener2, pTypeContainer.getPropertyTypeListeners().get(1));
-		assertEquals(2, pTypeContainer.getPropertyTypeListeners().size());
+		assertEquals(true, pTypeContainer.getTypeListeners().contains(listener2));
+		assertEquals(2, pTypeContainer.getTypeListeners().size());
 		pTypeContainer.removeListener(listener);
-		assertEquals(listener2, pTypeContainer.getPropertyTypeListeners().get(0));
+		assertEquals(true, pTypeContainer.getTypeListeners().contains(listener2));
 		try{
 			pTypeContainer.removeListener(listener);
 		} catch(IOException e){
@@ -74,16 +79,16 @@ public class PropertyTypeContainerTests {
 	}
 
 	@Test
-	public void testDeleteContainer(){
-		PropertyTypeListener listener = Mockito.mock(PropertyTypeListener.class);
-		PropertyTypeListener listener2 = Mockito.mock(PropertyTypeListener.class);
+	public void testDeleteContainer() throws IOException{
+		TypePatternListener listener = Mockito.mock(TypePatternListener.class);
+		TypePatternListener listener2 = Mockito.mock(TypePatternListener.class);
 		Mockito.verify(listener, Mockito.never()).erase();
 		Mockito.verify(listener2, Mockito.never()).erase();
 		pTypeContainer.addListener(listener);
 		pTypeContainer.addListener(listener2);
 		pTypeContainer.deleteContainer();
-		assertEquals(0, pTypeContainer.getPropertyTypeListeners().size());
-		assertEquals(0, pTypeContainer.getPropertiesType().size());
+		assertEquals(0, pTypeContainer.getTypeListeners().size());
+		assertEquals(0, pTypeContainer.getPropertyTypes().size());
 		Mockito.verify(listener, Mockito.times(1)).erase();
 		Mockito.verify(listener2, Mockito.times(1)).erase();
 	}
@@ -92,8 +97,8 @@ public class PropertyTypeContainerTests {
 	public void testManagingPropertiesListenerVerifying() throws IOException{
 		PropertyType pType = Mockito.mock(PropertyType.class);
 		PropertyType pType2 = Mockito.mock(PropertyType.class);		
-		PropertyTypeListener listener = Mockito.mock(PropertyTypeListener.class);
-		PropertyTypeListener listener2 = Mockito.mock(PropertyTypeListener.class);
+		TypePatternListener listener = Mockito.mock(TypePatternListener.class);
+		TypePatternListener listener2 = Mockito.mock(TypePatternListener.class);
 		pTypeContainer.addPropertyType(pType);
 		pTypeContainer.addListener(listener);
 		Mockito.verify(listener, Mockito.times(1)).addProperty(Mockito.isA(PropertyType.class));

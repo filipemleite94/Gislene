@@ -2,25 +2,11 @@ package AOM;
 
 import java.io.IOException;
 
-public class Type extends PropertyTypeContainer implements PropertyTypeListener {
+public class Type extends TypePatternContainer implements TypePatternListener {
 
 	public Type(String name) {
 		super(name);
-	}
-	
-	@Override
-	public void erase() {
-		super.deleteContainer();
-	}
-
-	@Override
-	public void addProperty(PropertyType pType, Object value) throws IOException{
-		return;
-	}
-
-	@Override
-	public void removeProperty(PropertyType pType) throws IOException{
-		return;
+		// TODO Auto-generated constructor stub
 	}
 
 	@Override
@@ -34,4 +20,47 @@ public class Type extends PropertyTypeContainer implements PropertyTypeListener 
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public void removeProperty(PropertyType pType) throws IOException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void addAccountability(AccountabilityType aType) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setAccountabilityChild(AccountabilityType aType, TypePatternListener child) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void removeAccountability(AccountabilityType aType) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setAsChild(Accountability account) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void removeChildStatus(Accountability account) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void erase() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

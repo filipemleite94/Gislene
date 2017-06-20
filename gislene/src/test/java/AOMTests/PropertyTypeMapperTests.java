@@ -8,15 +8,15 @@ import org.junit.Before;
 import org.junit.Test;
 
 import AOM.eClassMap;
-import AOM.ePropertyTypeMapper;
+import AOM.eTypePatternMapper;
 
 public class PropertyTypeMapperTests {
-	private final ePropertyTypeMapper propTypeMapper = 
-			ePropertyTypeMapper.PropTypeMapperInstance;
+	private final eTypePatternMapper propTypeMapper = 
+			eTypePatternMapper.TypePatternMapperInstance;
 	
 	@Before
 	public void setUp() throws Exception {
-		propTypeMapper.clearMap();
+		propTypeMapper.clearMaps();
 	}
 
 	@Test

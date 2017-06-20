@@ -1,13 +1,16 @@
 package AOM;
 
+import java.lang.reflect.InvocationTargetException;
+
 public class Property {
 	private Object value;
-	private Class<?> classes;
+	private Class<?> classe;
 	private final PropertyType pType;
 	
-	public Property(PropertyType pType) throws ClassNotFoundException{
+	public Property(PropertyType pType) throws ClassNotFoundException, IllegalAccessException, IllegalArgumentException, InvocationTargetException{
 		this.pType = pType;
-		//classes = Class.forName(this.pType.getType());
+		classe = pType.getPropertyClass();
+		value = pType.getValue("");
 	}
 	
 	public boolean setValue(String valueString){

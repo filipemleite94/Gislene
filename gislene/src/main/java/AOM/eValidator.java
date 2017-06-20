@@ -45,6 +45,7 @@ public enum eValidator {
 			return met.invoke(this);
 		}
 		met = casterMap.get(inputClass);
+		
 		return met.invoke(this, input);
 	}
 	
