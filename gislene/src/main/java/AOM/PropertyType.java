@@ -1,13 +1,12 @@
 package AOM;
 
-public class PropertyType {
-	private String name;
+public class PropertyType extends TypePatternAbstract{
 	private Class<?> propertyClass;
 	private static eClassMap cMap = eClassMap.INSTANCE;
 	private eValidator validator;
 	
 	PropertyType(String name, String typeName) throws ClassNotFoundException{
-		this.name = name;
+		super(name);
 		this.propertyClass = cMap.getClassGenerico(typeName);
 		this.validator = eValidator.INSTANCE;
 	}
@@ -20,10 +19,6 @@ public class PropertyType {
 			return null;
 		}
 		return tempValue;
-	}
-
-	public String getName() {
-		return name;
 	}
 	
 	public Class<?> getPropertyClass() throws ClassNotFoundException{

@@ -10,7 +10,7 @@ import org.junit.Test;
 import AOM.eClassMap;
 import AOM.eTypePatternMapper;
 
-public class PropertyTypeMapperTests {
+public class TypeMapperTests {
 	private final eTypePatternMapper propTypeMapper = 
 			eTypePatternMapper.TypePatternMapperInstance;
 	
@@ -18,6 +18,7 @@ public class PropertyTypeMapperTests {
 	public void setUp() throws Exception {
 		propTypeMapper.clearMaps();
 	}
+
 
 	@Test
 	public void testManagePropertyTypes() throws IOException, ClassNotFoundException {

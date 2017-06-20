@@ -45,7 +45,7 @@ public abstract class TypePatternContainer {
 	}
 	
 	public void removeAccountabilityType(AccountabilityType accountabilityType) throws IOException{
-		if(!tiposDePropriedades.remove(accountabilityType)){
+		if(!tiposDeAccountability.remove(accountabilityType)){
 			throw new IOException("Accountability nao encontrada");
 		}
 		for(TypePatternListener typeListener:listenerCollection){
@@ -74,7 +74,7 @@ public abstract class TypePatternContainer {
 			typeListener.removeProperty(pType);
 		}
 		for(AccountabilityType aType:tiposDeAccountability){
-			typeListener.addAccountability(aType);
+			typeListener.removeAccountability(aType);
 		}
 	}
 	
@@ -89,8 +89,6 @@ public abstract class TypePatternContainer {
 	public HashSet<TypePatternListener> getTypeListeners(){
 		return new HashSet<TypePatternListener>(listenerCollection);
 	}
-	
-	
 	
 	public void deleteContainer(){
 		Iterator<TypePatternListener> iterator = listenerCollection.iterator();

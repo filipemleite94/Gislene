@@ -1,14 +1,17 @@
 package AOM;
 
-public class AccountabilityType {
-	private String typeName;
+import java.util.HashSet;
+
+public class AccountabilityType extends TypePatternAbstract{
+	private AccountabilityType reciprocal;
 	
-	public AccountabilityType(String typeName){
-		this.typeName = typeName;
+	public AccountabilityType(String name){
+		super(name);
+		reciprocal = this;
 	}
 	
-	public String getTypeName(){
-		return this.typeName;
+	public void setReciprocal(AccountabilityType accountType){
+		this.reciprocal = accountType;
 	}
 	
 	public boolean validate(TypePatternListener parent, TypePatternListener child){
