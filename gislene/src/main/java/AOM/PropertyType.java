@@ -1,7 +1,5 @@
 package AOM;
 
-import java.lang.reflect.InvocationTargetException;
-
 public class PropertyType {
 	private String name;
 	private Class<?> propertyClass;

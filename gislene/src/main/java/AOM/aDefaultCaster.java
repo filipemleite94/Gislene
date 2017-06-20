@@ -7,11 +7,9 @@ import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
-import javax.lang.model.element.Element;
-
 @Documented
 @Target(ElementType.METHOD)
 @Retention(RUNTIME)
-public @interface aCaster {
+public @interface aDefaultCaster {
 	Class<?> targetClass();
 }

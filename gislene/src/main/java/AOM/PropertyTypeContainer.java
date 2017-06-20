@@ -18,14 +18,44 @@ public abstract class PropertyTypeContainer {
 		return name;
 	}
 	
-	public void addPropertyType(PropertyType propertyType){
+	public void addPropertyType(PropertyType propertyType) throws IOException{
 		tiposDePropriedades.add(propertyType);
+		for(PropertyTypeListener pTypeListener:listenerCollection){
+			pTypeListener.addProperty(propertyType);
+		}
 	}
 	
 	public void removePropertyType(PropertyType propertyType) throws IOException{
 		if(!tiposDePropriedades.remove(propertyType)){
-			throw new IOException("Propriedade não encontrada");
+			throw new IOException("Propriedade nao encontrada");
 		}
+		for(PropertyTypeListener pTypeListener:listenerCollection){
+			pTypeListener.removeProperty(propertyType);
+		}
+	}
+	
+	public void addListener(PropertyTypeListener pTypeListener){
+		listenerCollection.add(pTypeListener);
+		for(PropertyType pType:tiposDePropriedades){
+			pTypeListener.addProperty(pType);
+		}
+	}
+	
+	public void removeListener(PropertyTypeListener pTypeListener) throws IOException{
+		if(!listenerCollection.remove(pTypeListener)){
+			throw new IOException("Listener nao encontrado");
+		}
+		for(PropertyType pType:tiposDePropriedades){
+			pTypeListener.removeProperty(pType);
+		}
+	}
+	
+	public ArrayList<PropertyType> getPropertiesType(){
+		return new ArrayList<PropertyType>(tiposDePropriedades);
+	}
+	
+	public ArrayList<PropertyTypeListener> getPropertyTypeListeners(){
+		return new ArrayList<PropertyTypeListener>(listenerCollection);
 	}
 	
 	public void deleteContainer(){
@@ -33,5 +63,6 @@ public abstract class PropertyTypeContainer {
 			listenerCollection.get(0).erase();
 			listenerCollection.remove(0);
 		}
+		tiposDePropriedades.clear();
 	}
 }

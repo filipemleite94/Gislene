@@ -1,7 +1,12 @@
 package AOM;
 
+import java.io.IOException;
+
 public interface PropertyTypeListener {
-	public boolean addProperty(PropertyType pType, Object value);
-	public boolean removeProperty(PropertyType pType);
+	//Property receberá um valor default;
+	public void addProperty(PropertyType pType);
+	public void setProperty(PropertyType pType, Object value) throws IOException;
+	public void addProperty(PropertyType pType, Object value) throws IOException;
+	public void removeProperty(PropertyType pType) throws IOException;
 	public void erase();
 }

@@ -11,31 +11,31 @@ public enum ePropertyTypeContainerMapper {
 	private final Class<? extends PropertyTypeContainer> classe;
 	
 	private final HashMap<String, PropertyTypeContainer> map;
-	private final HashMap<PropertyType, ArrayList<PropertyTypeContainer>> PropertyTypeContainerMap;
+	private final HashMap<PropertyType, ArrayList<PropertyTypeContainer>> propertyTypeContainerMap;
 	private final ePropertyTypeMapper propTypeMap;
 	
 	private ePropertyTypeContainerMapper(Class<? extends PropertyTypeContainer> classe){
 		map = new HashMap<String, PropertyTypeContainer>();
 		propTypeMap = ePropertyTypeMapper.PropTypeMapperInstance;
 		this.classe = classe;
-		PropertyTypeContainerMap = new HashMap<PropertyType, ArrayList<PropertyTypeContainer>>();
+		propertyTypeContainerMap = new HashMap<PropertyType, ArrayList<PropertyTypeContainer>>();
 	}
 	
 	public PropertyTypeContainer getContainer(String name) throws IOException{
 		PropertyTypeContainer cont;
 		cont = map.get(name);
 		if(cont == null){
-			throw new IOException("Inexistent key");
+			throw new IOException("Inexistent Container");
 		}
 		return cont;
 	}
 	
 	private ArrayList<PropertyTypeContainer> getPropertyTypeContainerCol(PropertyType pType){
 		ArrayList<PropertyTypeContainer> pTypeContCol;
-		pTypeContCol = PropertyTypeContainerMap.get(pType);
+		pTypeContCol = propertyTypeContainerMap.get(pType);
 		if(pTypeContCol == null){
 			pTypeContCol = new ArrayList<PropertyTypeContainer>();
-			PropertyTypeContainerMap.put(pType, pTypeContCol);
+			propertyTypeContainerMap.put(pType, pTypeContCol);
 		}
 		return pTypeContCol;
 	}
@@ -59,7 +59,7 @@ public enum ePropertyTypeContainerMapper {
 		pTypeConCol.add(cont);
 	}
 	
-	public void removePropertyType(String contKey, String propTypeKey) throws IOException{
+	public void removePropertyTypeFromContainer(String contKey, String propTypeKey) throws IOException{
 		PropertyTypeContainer cont;
 		PropertyType pType;
 		ArrayList<PropertyTypeContainer> pTypeConCol;
@@ -68,8 +68,20 @@ public enum ePropertyTypeContainerMapper {
 		cont.removePropertyType(pType);
 		pTypeConCol = getPropertyTypeContainerCol(pType);
 		if(!pTypeConCol.remove(cont)){
-			throw new IOException("Propriedade não estava prevista.");
+			throw new IOException("Propriedade não estava prevista pra esse container");
 		}
+	}
+	
+	public void removePropertyTypeFromAll(PropertyType pType) throws IOException{
+		ArrayList<PropertyTypeContainer> pTypeConCol = propertyTypeContainerMap.get(pType);
+		if(pTypeConCol == null){
+			return;
+		}
+		for(PropertyTypeContainer propCon : pTypeConCol){
+			propCon.removePropertyType(pType);
+		}
+		pTypeConCol.clear();
+		propertyTypeContainerMap.remove(pType);
 	}
 	
 	public void removeContainer(String contKey) throws IOException{
