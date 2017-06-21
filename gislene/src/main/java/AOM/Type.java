@@ -12,7 +12,6 @@ public class Type extends TypePatternContainer implements TypePatternListener {
 	@Override
 	public void addProperty(PropertyType pType) {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override

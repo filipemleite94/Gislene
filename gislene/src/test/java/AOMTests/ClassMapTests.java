@@ -1,6 +1,5 @@
 package AOMTests;
 
-import AOM.*;
 import static org.junit.Assert.*;
 
 import org.junit.Test;
@@ -26,6 +25,25 @@ public class ClassMapTests {
 			classMap.getClassGenerico("bool");
 		}catch(ClassNotFoundException e){
 			assertEquals("A classe bool nao eh prevista", e.getMessage());
+		}
+	}
+	
+	@Test
+	public void testInvertedAcceptance() throws ClassNotFoundException {
+		assertEquals(classMap.getNameClassGenerico(classMap.booleanClass), classMap.booleanName);
+		assertEquals(classMap.getNameClassGenerico(classMap.charClass), classMap.charName);
+		assertEquals(classMap.getNameClassGenerico(classMap.intClass), classMap.intName);
+		assertEquals(classMap.getNameClassGenerico(classMap.doubleClass), classMap.doubleName);
+		assertEquals(classMap.getNameClassGenerico(classMap.stringClass), classMap.stringName);
+		assertEquals(classMap.getNameClassGenerico(classMap.geoClass), classMap.geoName);
+	}
+	
+	@Test
+	public void testInvertedRegect(){
+		try{
+			classMap.getNameClassGenerico(Object.class);
+		}catch(ClassNotFoundException e){
+			assertEquals("A classe Object nao eh prevista", e.getMessage());
 		}
 	}
 

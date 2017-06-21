@@ -1,16 +1,28 @@
 package AOM;
 
-import java.lang.reflect.InvocationTargetException;
-
 public class Property {
 	private Object value;
-	private Class<?> classe;
+	private final String name;
+	private final Class<?> classe;
 	private final PropertyType pType;
 	
-	public Property(PropertyType pType) throws ClassNotFoundException, IllegalAccessException, IllegalArgumentException, InvocationTargetException{
+	public Property(PropertyType pType){
 		this.pType = pType;
 		classe = pType.getPropertyClass();
 		value = pType.getValue("");
+		name = pType.getName();
+	}
+	
+	public Class<?> getClasse(){
+		return classe;
+	}
+	
+	public String getName(){
+		return name;
+	}
+	
+	public Object getValue(){
+		return value;
 	}
 	
 	public boolean setValue(String valueString){
@@ -21,5 +33,10 @@ public class Property {
 		}
 		this.value = tempValue;
 		return true;
+	}
+	
+	@Override
+	public String toString(){
+		return classe + " " + name + ": " + value; 
 	}
 }

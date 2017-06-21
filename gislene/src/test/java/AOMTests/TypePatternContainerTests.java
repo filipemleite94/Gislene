@@ -10,7 +10,6 @@ import org.mockito.Mockito;
 
 import AOM.AccountabilityType;
 import AOM.PropertyType;
-import AOM.TypePatternAbstract;
 import AOM.TypePatternContainer;
 import AOM.TypePatternListener;
 

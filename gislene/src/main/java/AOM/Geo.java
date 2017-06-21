@@ -3,11 +3,19 @@ package AOM;
 import java.io.IOException;
 
 public class Geo {
+	private String wayPoints;
+	
 	public Geo(){
-		//Construtor default;
+		//falta implementar direito
+		wayPoints = "0°0\"0\' 0°0\"0\'";
 	}
 	
 	public Geo(String input) throws IOException{
-		
+		//falta implementar direito
+		this.wayPoints = input;
+	}
+	
+	public String getValue(){
+		return wayPoints;
 	}
 }

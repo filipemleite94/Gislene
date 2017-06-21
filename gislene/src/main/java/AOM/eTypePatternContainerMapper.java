@@ -3,7 +3,6 @@ package AOM;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
-import java.util.HashSet;
 
 public enum eTypePatternContainerMapper {
 	CategoryMapperInstance(Category.class), TypeMapperInstance(Type.class);
@@ -11,12 +10,16 @@ public enum eTypePatternContainerMapper {
 	private final Class<? extends TypePatternContainer> classe;
 	
 	private HashMap<String, TypePatternContainer> map;
-	private eTypePatternMapper typePatMap;
+	private eTypePatternMapper typePatMap = eTypePatternMapper.TypePatternMapperInstance;
 	
 	private eTypePatternContainerMapper(Class<? extends TypePatternContainer> classe){
 		map = new HashMap<String, TypePatternContainer>();
-		typePatMap = eTypePatternMapper.TypePatternMapperInstance;
 		this.classe = classe;
+	}
+	
+	public void  cleanMap(){
+		map = new HashMap<String, TypePatternContainer>();
+		typePatMap = eTypePatternMapper.TypePatternMapperInstance;
 	}
 	
 	public TypePatternContainer getContainer(String name) throws IOException{
@@ -28,7 +31,7 @@ public enum eTypePatternContainerMapper {
 		return cont;
 	}
 		
-	public void addContainer(String name) throws IOException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException{
+	public void addContainer(String name) throws IOException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
 		if(map.get(name) != null){
 			throw new IOException("Duplicate key");
 		}
@@ -48,6 +51,7 @@ public enum eTypePatternContainerMapper {
 		TypePatternContainer cont;
 		AccountabilityType aType;
 		cont = getContainer(contKey);	
+		System.out.println(typePatMap.toString());
 		aType = typePatMap.getAccountabilityType(accountTypeKey);
 		cont.addAccountabilityType(aType);
 	}
@@ -62,10 +66,10 @@ public enum eTypePatternContainerMapper {
 	
 	public boolean removeAccountabilityTypeFromContainer(String contKey, String accountTypeKey) throws IOException{
 		TypePatternContainer cont;
-		PropertyType aType;
+		AccountabilityType aType;
 		cont = getContainer(contKey);
-		aType = typePatMap.getPropertyType(accountTypeKey);
-		return cont.removePropertyType(aType);		
+		aType = typePatMap.getAccountabilityType(accountTypeKey);
+		return cont.removeAccountabilityType(aType);		
 	}
 	
 	public void removeContainer(String contKey) throws IOException{

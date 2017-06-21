@@ -3,7 +3,13 @@ package AOM;
 import java.io.IOException;
 
 public class Objeto implements TypePatternListener {
-
+	String name;
+	
+	@Override
+	public String getName(){
+		return name;
+	}
+	
 	@Override
 	public void addProperty(PropertyType pType) {
 		// TODO Auto-generated method stub

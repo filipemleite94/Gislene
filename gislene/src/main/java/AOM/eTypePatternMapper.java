@@ -21,6 +21,8 @@ public enum eTypePatternMapper {
 	public void clearMaps(){
 		typeMap = new HashMap<String, PropertyType>();
 		accountMap = new HashMap<String, AccountabilityType>();
+		TypeMapper = eTypePatternContainerMapper.TypeMapperInstance;
+		CategoryMapper = eTypePatternContainerMapper.CategoryMapperInstance;
 	}
 	
 	public void putPropertyType(String name, String typeName) throws IOException, ClassNotFoundException{

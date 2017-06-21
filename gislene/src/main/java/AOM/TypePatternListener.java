@@ -3,6 +3,8 @@ package AOM;
 import java.io.IOException;
 
 public interface TypePatternListener {
+	public String getName();
+	
 	//Property receberá um valor default;
 	public void addProperty(PropertyType pType);
 	public boolean setProperty(PropertyType pType, Object value);

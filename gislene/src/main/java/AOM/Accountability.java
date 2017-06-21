@@ -19,4 +19,9 @@ public class Accountability {
 		}
 		throw new IOException("Impossível de fazer a Accountability");
 	}
+	
+	@Override
+	public String toString(){
+		return accountType.getName() + ": " + ((this.child==null)? "desconhecido":child.getName()); 
+	}
 }

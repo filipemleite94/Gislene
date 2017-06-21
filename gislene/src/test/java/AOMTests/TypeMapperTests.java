@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import java.io.IOException;
 
+import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -15,14 +16,18 @@ import AOM.eClassMap;
 import AOM.eTypePatternMapper;
 
 public class TypeMapperTests {
-	private final eTypePatternMapper propTypeMapper = 
+	private static eTypePatternMapper propTypeMapper = 
 			eTypePatternMapper.TypePatternMapperInstance;
 	
 	@Before
-	public void setUp() throws Exception {
+	public void setUp(){
 		propTypeMapper.clearMaps();
 	}
 
+	@AfterClass
+	public static void cleanUp(){
+		propTypeMapper.clearMaps();
+	}
 
 	@Test
 	public void testAddPropertyTypes() throws IOException, ClassNotFoundException {

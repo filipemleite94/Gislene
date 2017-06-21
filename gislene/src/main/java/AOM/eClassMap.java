@@ -6,6 +6,7 @@ public enum eClassMap {
 	INSTANCE;
 	
 	private final HashMap<String, Class<?>> classMap;
+	private final HashMap<Class<?>, String> invertedMap;
 	
 	public String booleanName = "boolean";
 	public String charName = "char";
@@ -29,6 +30,15 @@ public enum eClassMap {
 		classMap.put(doubleName, doubleClass);
 		classMap.put(stringName, stringClass);
 		classMap.put(geoName, geoClass);
+		
+		invertedMap = new HashMap<Class<?>, String>();
+		invertedMap.put(booleanClass, booleanName);
+		invertedMap.put(charClass,  charName);
+		invertedMap.put(intClass, intName);
+		invertedMap.put(doubleClass, doubleName);
+		invertedMap.put(stringClass, stringName);
+		invertedMap.put(geoClass, geoName);
+		
 	}
 	
 	public Class<?> getClassGenerico(String className) throws ClassNotFoundException{
@@ -37,5 +47,13 @@ public enum eClassMap {
 			throw new ClassNotFoundException("A classe " + className + " nao eh prevista");
 		}
 		return objectClass;
+	}
+	
+	public String getNameClassGenerico(Class<?> classe) throws ClassNotFoundException{
+		String className = invertedMap.get(classe);
+		if(classMap == null){
+			throw new ClassNotFoundException("A classe " + classe.getName() + " nao eh prevista");
+		}
+		return className;	
 	}
 }
