@@ -58,15 +58,14 @@ public enum eTypePatternMapper {
 	public void removePropertyType(String name) throws IOException{
 		PropertyType propType;
 		propType = getPropertyType(name);
-		TypeMapper.removePropertyTypeFromAll(propType);
-		CategoryMapper.removePropertyTypeFromAll(propType);
+		propType.deleteType();
 		typeMap.remove(name);
 	}
 	
 	public void removeAccountabilityType(String name) throws IOException{
 		AccountabilityType accountType;
 		accountType = getAccountabilityType(name);
-		TypeMapper.removeAccountabilityTypeFromAll(accountType);
-		CategoryMapper.removeAccountabilityTypeFromAll(accountType);
+		accountType.deleteType();
+		accountMap.remove(name);
 	}
 }

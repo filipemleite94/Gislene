@@ -19,15 +19,21 @@ public abstract class TypePatternAbstract {
 		return this.name;
 	}
 	
-	public void addContainer(TypePatternContainer container){
-		listenerContainer.add(container);
+	public boolean addContainer(TypePatternContainer container){
+		if(listenerContainer.add(container)){
+			return true;
+		}
+		return false;
 	}
 	
-	public void removeContainer(TypePatternContainer container){
-		listenerContainer.remove(container);
+	public boolean removeContainer(TypePatternContainer container){
+		if(listenerContainer.remove(container)){
+			return true;
+		}
+		return false;
 	}
 	
-	public void deleteType() throws IOException{
+	public void deleteType(){
 		Iterator<TypePatternContainer> iterator = listenerContainer.iterator();
 		if(classe==PropertyType.class){
 			while(iterator.hasNext()){

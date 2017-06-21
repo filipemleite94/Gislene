@@ -21,61 +21,72 @@ public abstract class TypePatternContainer {
 		return name;
 	}
 	
-	public void addPropertyType(PropertyType propertyType) throws IOException{
-		tiposDePropriedades.add(propertyType);
-		for(TypePatternListener pTypeListener:listenerCollection){
-			pTypeListener.addProperty(propertyType);
+	public boolean addPropertyType(PropertyType propertyType){
+		if(tiposDePropriedades.add(propertyType)){
+			for(TypePatternListener pTypeListener:listenerCollection){
+				pTypeListener.addProperty(propertyType);
+			}
+			propertyType.addContainer(this);
+			return true;
 		}
+		return false;
 	}
 	
-	public void removePropertyType(PropertyType propertyType) throws IOException{
-		if(!tiposDePropriedades.remove(propertyType)){
-			throw new IOException("Propriedade nao encontrada");
+	public boolean removePropertyType(PropertyType propertyType){
+		if(tiposDePropriedades.remove(propertyType)){		
+			for(TypePatternListener pTypeListener:listenerCollection){
+				pTypeListener.removeProperty(propertyType);
+			}
+			return true;
 		}
-		for(TypePatternListener pTypeListener:listenerCollection){
-			pTypeListener.removeProperty(propertyType);
-		}
+		return false;
 	}
 
-	public void addAccountabilityType(AccountabilityType accountabilityType) throws IOException{
-		tiposDeAccountability.add(accountabilityType);
-		for(TypePatternListener pTypeListener:listenerCollection){
-			pTypeListener.addAccountability(accountabilityType);
+	public boolean addAccountabilityType(AccountabilityType accountabilityType){
+		if(tiposDeAccountability.add(accountabilityType)){
+			for(TypePatternListener pTypeListener:listenerCollection){
+				pTypeListener.addAccountability(accountabilityType);
+			}
+			accountabilityType.addContainer(this);
+			return true;
 		}
+		return false;
 	}
 	
-	public void removeAccountabilityType(AccountabilityType accountabilityType) throws IOException{
-		if(!tiposDeAccountability.remove(accountabilityType)){
-			throw new IOException("Accountability nao encontrada");
+	public boolean removeAccountabilityType(AccountabilityType accountabilityType){
+		if(tiposDeAccountability.remove(accountabilityType)){
+			for(TypePatternListener typeListener:listenerCollection){
+				typeListener.removeAccountability(accountabilityType);
+			}
+			return true;
 		}
-		for(TypePatternListener typeListener:listenerCollection){
-			typeListener.removeAccountability(accountabilityType);
-		}
+		return false;
 	}
 	
-	public void addListener(TypePatternListener typeListener) throws IOException{
-		if(listenerCollection.contains(typeListener)){
-			throw new IOException("Listener ja existe");
+	public boolean addListener(TypePatternListener typeListener){
+		if(listenerCollection.add(typeListener)){
+			for(PropertyType pType:tiposDePropriedades){
+				typeListener.addProperty(pType);
+			}
+			for(AccountabilityType aType:tiposDeAccountability){
+				typeListener.addAccountability(aType);
+			}
+			return true;
 		}
-		listenerCollection.add(typeListener);
-		for(PropertyType pType:tiposDePropriedades){
-			typeListener.addProperty(pType);
-		}
-		for(AccountabilityType aType:tiposDeAccountability){
-			typeListener.addAccountability(aType);
-		}
+		return false;
 	}
 	
-	public void removeListener(TypePatternListener typeListener) throws IOException{
-		if(!listenerCollection.remove(typeListener)){
-			throw new IOException("Listener nao encontrado");
+	public boolean removeListener(TypePatternListener typeListener){
+		if(listenerCollection.remove(typeListener)){
+			for(PropertyType pType:tiposDePropriedades){
+				typeListener.removeProperty(pType);
+			}
+			for(AccountabilityType aType:tiposDeAccountability){
+				typeListener.removeAccountability(aType);
+			}
+			return true;
 		}
-		for(PropertyType pType:tiposDePropriedades){
-			typeListener.removeProperty(pType);
-		}
-		for(AccountabilityType aType:tiposDeAccountability){
-			typeListener.removeAccountability(aType);
-		}
+		return false;
 	}
 	
 	public HashSet<PropertyType> getPropertyTypes(){
@@ -92,11 +103,23 @@ public abstract class TypePatternContainer {
 	
 	public void deleteContainer(){
 		Iterator<TypePatternListener> iterator = listenerCollection.iterator();
-		
 		while(iterator.hasNext()){
 			iterator.next().erase();
 			iterator.remove();
 		}
+		
+		Iterator<PropertyType> propIterator = tiposDePropriedades.iterator();
+		while(propIterator.hasNext()){
+			propIterator.next().removeContainer(this);
+			propIterator.remove();
+		}
+		
+		Iterator<AccountabilityType> accountType = tiposDeAccountability.iterator();
+		while(accountType.hasNext()){
+			accountType.next().removeContainer(this);
+			accountType.remove();
+		}
+		
 		tiposDePropriedades.clear();
 		tiposDeAccountability.clear();
 	}

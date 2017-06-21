@@ -16,15 +16,15 @@ public class Type extends TypePatternContainer implements TypePatternListener {
 	}
 
 	@Override
-	public void setProperty(PropertyType pType, Object value) throws IOException {
+	public boolean setProperty(PropertyType pType, Object value) {
 		// TODO Auto-generated method stub
-		
+		return false;
 	}
 
 	@Override
-	public void removeProperty(PropertyType pType) throws IOException {
+	public boolean removeProperty(PropertyType pType) {
 		// TODO Auto-generated method stub
-		
+		return false;
 	}
 
 	@Override
@@ -46,15 +46,9 @@ public class Type extends TypePatternContainer implements TypePatternListener {
 	}
 
 	@Override
-	public void setAsChild(Accountability account) {
+	public boolean checkIfReciprocal(AccountabilityType accountabilityType) {
 		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void removeChildStatus(Accountability account) {
-		// TODO Auto-generated method stub
-		
+		return false;
 	}
 
 	@Override

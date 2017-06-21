@@ -5,13 +5,13 @@ public class PropertyType extends TypePatternAbstract{
 	private static eClassMap cMap = eClassMap.INSTANCE;
 	private eValidator validator;
 	
-	PropertyType(String name, String typeName) throws ClassNotFoundException{
+	public PropertyType(String name, String typeName) throws ClassNotFoundException{
 		super(name);
 		this.propertyClass = cMap.getClassGenerico(typeName);
 		this.validator = eValidator.INSTANCE;
 	}
 	
-	Object getValue(String value){
+	public Object getValue(String value){
 		Object tempValue;
 		try{
 			tempValue = validator.cast(value, propertyClass);
@@ -21,7 +21,7 @@ public class PropertyType extends TypePatternAbstract{
 		return tempValue;
 	}
 	
-	public Class<?> getPropertyClass() throws ClassNotFoundException{
+	public Class<?> getPropertyClass(){
 		return propertyClass;
 	}
 }

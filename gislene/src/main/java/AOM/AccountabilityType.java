@@ -1,7 +1,5 @@
 package AOM;
 
-import java.util.HashSet;
-
 public class AccountabilityType extends TypePatternAbstract{
 	private AccountabilityType reciprocal;
 	
@@ -10,12 +8,15 @@ public class AccountabilityType extends TypePatternAbstract{
 		reciprocal = this;
 	}
 	
+	public AccountabilityType getReciprocal(){
+		return reciprocal;
+	}
+	
 	public void setReciprocal(AccountabilityType accountType){
 		this.reciprocal = accountType;
 	}
 	
 	public boolean validate(TypePatternListener parent, TypePatternListener child){
-		//Ainda não implementado
-		return true;
+		return child.checkIfReciprocal(this);
 	}
 }
