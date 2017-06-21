@@ -31,23 +31,30 @@ public class TypeMapperTests {
 
 	@Test
 	public void testAddPropertyTypes() throws IOException, ClassNotFoundException {
+		String msg = null;
 		try{
 			propTypeMapper.getPropertyType("foo");
 		}catch(IOException e){
-			assertEquals("Inexistent PropertyType", e.getMessage());
+			msg = e.getMessage();
 		}
+		assertEquals("Inexistent PropertyType", msg);
+		msg = null;
 		propTypeMapper.putPropertyType("foo", eClassMap.INSTANCE.booleanName);
 		assertEquals("foo", propTypeMapper.getPropertyType("foo").getName());
 		try{
 			propTypeMapper.putPropertyType("foo", eClassMap.INSTANCE.booleanName);
 		}catch(IOException e){
-			assertEquals("Duplicate PropertyType name", e.getMessage());
+			msg = e.getMessage();
 		}
+		assertEquals("Duplicate PropertyType name", msg);
+		msg = null;
 		try{
 			propTypeMapper.putPropertyType("abc", "bool");
 		}catch(ClassNotFoundException e){
-			assertEquals("A classe bool nao eh prevista", e.getMessage());
+			msg = e.getMessage();
 		}
+		assertEquals("A classe bool nao eh prevista", msg);
+		msg = null;
 	}
 	
 	
@@ -55,6 +62,7 @@ public class TypeMapperTests {
 	@Test
 	public void testRemovePropertyType() throws ClassNotFoundException, IOException{
 		PropertyType pType;
+		String msg = null;
 		TypePatternContainer cont = Mockito.mock(TypePatternContainer.class);
 		propTypeMapper.putPropertyType("foo", eClassMap.INSTANCE.booleanName);
 		pType = propTypeMapper.getPropertyType("foo");
@@ -64,30 +72,38 @@ public class TypeMapperTests {
 		try{
 			propTypeMapper.getPropertyType("foo");
 		}catch(IOException e){
-			assertEquals("Inexistent PropertyType", e.getMessage());
+			msg = e.getMessage();			
 		}
+		assertEquals("Inexistent PropertyType", msg);
+		msg = null;
 	}
 	
 	@Test
 	public void testAddAccountabilityTypes() throws IOException, ClassNotFoundException {
+		String msg = null;
 		try{
 			propTypeMapper.getAccountabilityType("foo");
 		}catch(IOException e){
-			assertEquals("Inexistent AccountabilityType", e.getMessage());
+			msg = e.getMessage();
 		}
+		assertEquals("Inexistent AccountabilityType", msg);
+		msg = null;
 		propTypeMapper.putAccountabilityType("foo");
 		assertEquals("foo", propTypeMapper.getAccountabilityType("foo").getName());
 		try{
 			propTypeMapper.putAccountabilityType("foo");
 		}catch(IOException e){
-			assertEquals("Duplicate AccountabilityType name", e.getMessage());
+			msg = e.getMessage();
 		}
+		assertEquals("Duplicate AccountabilityType name", msg);
+		msg = null;
 	}
 
 	@Test
 	public void testRemoveAccountabilityType() throws ClassNotFoundException, IOException{
 		AccountabilityType aType;
 		TypePatternContainer cont = Mockito.mock(TypePatternContainer.class);
+		String msg = null;
 		propTypeMapper.putAccountabilityType("foo");
 		aType = propTypeMapper.getAccountabilityType("foo");
 		aType.addContainer(cont);
@@ -96,7 +112,9 @@ public class TypeMapperTests {
 		try{
 			propTypeMapper.getAccountabilityType("foo");
 		}catch(IOException e){
-			assertEquals("Inexistent AccountabilityType", e.getMessage());
+			msg = e.getMessage();
 		}
+		assertEquals("Inexistent AccountabilityType", msg);
+		msg = null;
 	}
 }

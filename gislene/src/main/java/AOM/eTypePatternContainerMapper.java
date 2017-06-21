@@ -50,8 +50,7 @@ public enum eTypePatternContainerMapper {
 	public void addAccountabilityType(String contKey, String accountTypeKey) throws IOException{
 		TypePatternContainer cont;
 		AccountabilityType aType;
-		cont = getContainer(contKey);	
-		System.out.println(typePatMap.toString());
+		cont = getContainer(contKey);
 		aType = typePatMap.getAccountabilityType(accountTypeKey);
 		cont.addAccountabilityType(aType);
 	}

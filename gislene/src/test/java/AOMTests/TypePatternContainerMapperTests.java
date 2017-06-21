@@ -40,28 +40,36 @@ public class TypePatternContainerMapperTests {
 	
 	@Test
 	public void testManagingContainers() throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, IOException{
+		String msg = null;
 		try{
 			typeContMap.removeContainer("foo");
 		}catch(IOException e){
-			assertEquals("Inexistent Container", e.getMessage());
+			msg = e.getMessage();
 		}
+		assertEquals("Inexistent Container", msg);
+		msg = null;
 		typeContMap.addContainer("foo");
 		try{
 			typeContMap.addContainer("foo");
 		}catch(IOException e){
-			assertEquals("Duplicate key", e.getMessage());
+			msg = e.getMessage();
 		}
+		assertEquals("Duplicate key", msg);
+		msg = null;
 		typeContMap.removeContainer("foo");
 		typeContMap.addContainer("foo");
 	}
 	
 	@Test
 	public void testManagingAccountabilityType() throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, IOException {
+		String msg = null;
 		try {
 			typeContMap.addAccountabilityType("foo", standardName);
 		} catch (IOException e) {
-			assertEquals("Inexistent Container", e.getMessage());
+			msg = e.getMessage();
 		}
+		assertEquals("Inexistent Container", msg);
+		msg = null;
 		typeContMap.addContainer("foo");
 		typeContMap.addAccountabilityType("foo", standardName);
 		assertTrue(typeContMap.getContainer("foo").getAccountabilityTypes().contains(aType));
@@ -72,11 +80,14 @@ public class TypePatternContainerMapperTests {
 	
 	@Test
 	public void testManagingPropertyType() throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, IOException {
+		String msg = null;
 		try {
 			typeContMap.addPropertyType("foo", standardName);
 		} catch (IOException e) {
-			assertEquals("Inexistent Container", e.getMessage());
+			msg = e.getMessage();
 		}
+		assertEquals("Inexistent Container", msg);
+		msg = null;
 		typeContMap.addContainer("foo");
 		typeContMap.addPropertyType("foo", standardName);
 		assertTrue(typeContMap.getContainer("foo").getPropertyTypes().contains(pType));

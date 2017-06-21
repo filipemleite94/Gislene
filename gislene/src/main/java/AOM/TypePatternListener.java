@@ -1,7 +1,5 @@
 package AOM;
 
-import java.io.IOException;
-
 public interface TypePatternListener {
 	public String getName();
 	

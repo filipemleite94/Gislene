@@ -20,11 +20,14 @@ public class ValidatorTests {
 	@Test
 	public void booleanRejectTest() throws IllegalAccessException, IllegalArgumentException{
 		Class<?> c = eClassMap.INSTANCE.booleanClass;
+		String msg = null;
 		try{
 			validator.cast("abc", c);
 		}catch(InvocationTargetException e){
-			assertEquals("Can't convert abc to "+ c, e.getCause().getMessage().toString());
+			msg = e.getCause().getMessage().toString();
 		}
+		assertEquals("Can't convert abc to "+ c, msg);
+		msg = null;
 	}
 	
 	@Test
@@ -37,11 +40,13 @@ public class ValidatorTests {
 	@Test
 	public void charRejectTest() throws IllegalAccessException, IllegalArgumentException{
 		Class<?> c = eClassMap.INSTANCE.charClass;
+		String msg = null;
 		try{
 			validator.cast("abc", c);
 		}catch(InvocationTargetException e){
-			assertEquals("Can't convert abc to "+ c, e.getCause().getMessage().toString());
+			msg = e.getCause().getMessage().toString();
 		}
+		assertEquals("Can't convert abc to "+ c, msg);
 	}
 	
 	@Test
@@ -54,11 +59,14 @@ public class ValidatorTests {
 	@Test
 	public void intRejectTest() throws IllegalAccessException, IllegalArgumentException{
 		Class<?> c = eClassMap.INSTANCE.intClass;
+		String msg = null;
 		try{
 			validator.cast("abc", c);
 		}catch(InvocationTargetException e){
-			assertEquals("Can't convert abc to "+ c, e.getCause().getMessage().toString());
+			msg = e.getCause().getMessage().toString();
 		}
+		assertEquals("Can't convert abc to "+ c, msg);
+		msg = null;
 	}
 	
 	@Test
@@ -71,11 +79,13 @@ public class ValidatorTests {
 	@Test
 	public void doubleRejectTest() throws IllegalAccessException, IllegalArgumentException{
 		Class<?> c = eClassMap.INSTANCE.doubleClass;
+		String msg =null;
 		try{
 			validator.cast("abc", c);
 		}catch(InvocationTargetException e){
-			assertEquals("Can't convert abc to "+ c, e.getCause().getMessage().toString());
+			msg = e.getCause().getMessage().toString();
 		}
+		assertEquals("Can't convert abc to "+ c, msg);
 	}
 	
 	@Test

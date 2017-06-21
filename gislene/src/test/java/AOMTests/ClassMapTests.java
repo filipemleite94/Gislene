@@ -21,11 +21,14 @@ public class ClassMapTests {
 	
 	@Test
 	public void testRegect(){
+		String msg = null;
 		try{
 			classMap.getClassGenerico("bool");
 		}catch(ClassNotFoundException e){
-			assertEquals("A classe bool nao eh prevista", e.getMessage());
+			msg = e.getMessage();
 		}
+		assertEquals("A classe bool nao eh prevista", msg);
+		msg = null;
 	}
 	
 	@Test
@@ -40,11 +43,15 @@ public class ClassMapTests {
 	
 	@Test
 	public void testInvertedRegect(){
+		String msg = null;
 		try{
 			classMap.getNameClassGenerico(Object.class);
 		}catch(ClassNotFoundException e){
-			assertEquals("A classe Object nao eh prevista", e.getMessage());
+			msg = e.getMessage();
 		}
+		System.out.println(classMap);
+		assertEquals("A classe java.lang.Object nao eh prevista", msg);
+		msg = null;
 	}
 
 }

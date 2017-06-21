@@ -51,7 +51,7 @@ public enum eClassMap {
 	
 	public String getNameClassGenerico(Class<?> classe) throws ClassNotFoundException{
 		String className = invertedMap.get(classe);
-		if(classMap == null){
+		if(className == null){
 			throw new ClassNotFoundException("A classe " + classe.getName() + " nao eh prevista");
 		}
 		return className;	
