@@ -1,4 +1,4 @@
-package gislene;
+package BDTests;
 
 import static org.junit.Assert.*;
 
@@ -10,6 +10,8 @@ import java.sql.ResultSet;
 
 import org.junit.Before;
 import org.junit.Test;
+
+import gislene.GPSManager;
 
 public class testesBD {
 	
