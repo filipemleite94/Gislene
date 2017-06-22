@@ -49,7 +49,6 @@ public class ClassMapTests {
 		}catch(ClassNotFoundException e){
 			msg = e.getMessage();
 		}
-		System.out.println(classMap);
 		assertEquals("A classe java.lang.Object nao eh prevista", msg);
 		msg = null;
 	}

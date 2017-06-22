@@ -1,12 +1,11 @@
 package AOM;
 
-import java.io.IOException;
-
 public class Accountability {
 	TypePatternListener parent;
 	TypePatternListener child;
 	String name;
 	AccountabilityType accountType;
+	Accountability reciprocal;
 	
 	public Accountability(AccountabilityType accountType, TypePatternListener parent){
 		this.parent = parent;
@@ -27,13 +26,17 @@ public class Accountability {
 		return child;
 	}
 	
-	public boolean setChild(TypePatternListener child) throws IOException{
+	public boolean setChild(TypePatternListener child){
 		if(accountType.validate(parent, child)){
 			this.child = child;
 			return true;
 		}else{
 			return false;
 		}
+	}
+	
+	public void erase(){
+		child.loseChild(accountType, parent);
 	}
 	
 	@Override

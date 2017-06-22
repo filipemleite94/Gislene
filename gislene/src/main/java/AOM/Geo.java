@@ -15,7 +15,7 @@ public class Geo {
 		this.wayPoints = input;
 	}
 	
-	public String getValue(){
+	public String getPointsString(){
 		return wayPoints;
 	}
 }

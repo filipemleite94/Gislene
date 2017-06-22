@@ -1,60 +1,94 @@
 package AOM;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
 
 public class Objeto implements TypePatternListener {
-	String name;
+	private final String name;
+	private Geo posicao;
+	private HashMap<PropertyType, Property> properties;
+	private HashMap<AccountabilityType, Accountability> accountabilities;
+	private Type tipo;
 	
-	@Override
-	public String getName(){
-		return name;
+	public Objeto(String name, String posicao, Type tipo) throws IOException{
+		this.name = name;
+		this.posicao = new Geo(posicao);
+		properties = new HashMap<PropertyType, Property>();
+		accountabilities = new HashMap<AccountabilityType, Accountability>();
+		this.tipo = tipo;
+	}
+	
+	public Geo getGeo() throws IOException{
+		return new Geo(posicao.getPointsString());
 	}
 	
 	@Override
-	public void addProperty(PropertyType pType) {
-		// TODO Auto-generated method stub
-		
+	public String getName() {
+		return this.name;
 	}
 
 	@Override
-	public boolean setProperty(PropertyType pType, Object value) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean addProperty(PropertyType pType) {
+		if(properties.containsKey(pType)){
+			return false;
+		}
+		properties.put(pType, new Property(pType));
+		return true;
+	}
+
+	@Override
+	public boolean setProperty(PropertyType pType, String value) {
+		Property prop = properties.get(pType);
+		return (prop==null)? false: prop.setValue(value);
 	}
 
 	@Override
 	public boolean removeProperty(PropertyType pType) {
-		// TODO Auto-generated method stub
-		return false;
+		return properties.remove(pType) != null;
 	}
 
 	@Override
-	public void addAccountability(AccountabilityType aType) {
-		// TODO Auto-generated method stub
-		
+	public boolean addAccountability(AccountabilityType aType) {
+		if(accountabilities.containsKey(aType)){
+			return false;
+		}
+		accountabilities.put(aType, new Accountability(aType, this));
+		return true;
 	}
 
 	@Override
-	public void setAccountabilityChild(AccountabilityType aType, TypePatternListener child) {
-		// TODO Auto-generated method stub
-		
+	public boolean setAccountabilityChild(AccountabilityType aType, TypePatternListener child) {
+		Accountability account = accountabilities.get(aType);
+		return (account==null)? false:account.setChild(child);
 	}
 
 	@Override
-	public void removeAccountability(AccountabilityType aType) {
-		// TODO Auto-generated method stub
-		
+	public boolean removeAccountability(AccountabilityType aType) {
+		return accountabilities.remove(aType) != null;
+	}
+	
+	@Override
+	public boolean loseChild(AccountabilityType aType, TypePatternListener lostChild){
+		Accountability account = accountabilities.get(aType);
+		return (account==null)? false: account.setChild(null);
 	}
 
 	@Override
 	public boolean checkIfReciprocal(AccountabilityType accountabilityType) {
-		// TODO Auto-generated method stub
-		return false;
+		return accountabilities.containsKey(accountabilityType);
 	}
 
 	@Override
 	public void erase() {
-		// TODO Auto-generated method stub
-		
+		posicao = null;
+		properties = null;
+		Iterator<Accountability> iterator = accountabilities.values().iterator();
+		while(iterator.hasNext()){
+			iterator.next().erase();
+			iterator.remove();
+		}
+		accountabilities = null;
 	}
 }
