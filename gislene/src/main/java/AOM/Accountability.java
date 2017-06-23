@@ -1,16 +1,18 @@
 package AOM;
 
-public class Accountability {
-	TypePatternListener parent;
-	TypePatternListener child;
+import COMM.IStorableObject;
+
+public class Accountability implements IStorableObject {
+	ITypePatternListener parent;
+	ITypePatternListener child;
 	String name;
 	AccountabilityType accountType;
 	Accountability reciprocal;
 	
-	public Accountability(AccountabilityType accountType, TypePatternListener parent){
+	public Accountability(AccountabilityType accountType, ITypePatternListener parent){
 		this.parent = parent;
 		this.accountType = accountType;
-		this.name = accountType.name;
+		this.name = accountType.nameVariable;
 		child = null;
 	}
 	
@@ -18,15 +20,15 @@ public class Accountability {
 		return name;
 	}
 	
-	public TypePatternListener getParent(){
+	public ITypePatternListener getParent(){
 		return parent;
 	}
 	
-	public TypePatternListener getChild(){
+	public ITypePatternListener getChild(){
 		return child;
 	}
 	
-	public boolean setChild(TypePatternListener child){
+	public boolean setChild(ITypePatternListener child){
 		if(accountType.validate(parent, child)){
 			this.child = child;
 			return true;

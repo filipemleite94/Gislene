@@ -2,6 +2,8 @@ package AOM;
 
 import java.io.IOException;
 
+import com.sleepycat.persist.model.Persistent;
+
 public class Geo {
 	private String wayPoints;
 	

@@ -4,18 +4,22 @@ import java.util.HashSet;
 import java.util.Iterator;
 
 public abstract class TypePatternAbstract {
-	protected String name;
-	protected HashSet<TypePatternContainer> listenerContainer;
-	protected Class<?> classe;
 	
-	public TypePatternAbstract(String name){
-		this.name = name;
-		this.classe = this.getClass();
+	protected String nameVariable;
+	protected HashSet<TypePatternContainer> listenerContainer;
+	Class<?> classe;
+	
+	public TypePatternAbstract(String nameVariable){
+		this.nameVariable = nameVariable;
 		listenerContainer = new HashSet<TypePatternContainer>();
 	}
 	
 	public String getName(){
-		return this.name;
+		return null;
+	}
+	
+	public String getNameVariable(){
+		return this.nameVariable;
 	}
 	
 	public boolean addContainer(TypePatternContainer container){

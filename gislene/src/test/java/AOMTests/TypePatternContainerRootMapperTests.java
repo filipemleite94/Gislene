@@ -10,13 +10,15 @@ import org.junit.Before;
 import org.junit.Test;
 
 import AOM.AccountabilityType;
+import AOM.Category;
 import AOM.PropertyType;
+import AOM.Type;
 import AOM.eClassMap;
-import AOM.eTypePatternContainerMapper;
+import AOM.eTypePatternContainerRootMapper;
 import AOM.eTypePatternMapper;
 
-public class TypePatternContainerMapperTests {
-	private static eTypePatternContainerMapper typeContMap = eTypePatternContainerMapper.TypeMapperInstance;
+public class TypePatternContainerRootMapperTests {
+	private static eTypePatternContainerRootMapper typeContMap = eTypePatternContainerRootMapper.CategoryMapperInstance;
 	private static eTypePatternMapper typeMap = eTypePatternMapper.TypePatternMapperInstance;
 	private PropertyType pType;
 	private AccountabilityType aType;
@@ -58,6 +60,15 @@ public class TypePatternContainerMapperTests {
 		msg = null;
 		typeContMap.removeContainer("foo");
 		typeContMap.addContainer("foo");
+		typeContMap.inputContainer(new Category("fooCont"));
+		assertEquals("fooCont", typeContMap.getContainer("fooCont").getName());
+		typeContMap.inputContainer(new Category("fooCont"));
+		try{
+			typeContMap.inputContainer(new Type("fooCont", (Category)typeContMap.getContainer("fooCont")));
+		}catch(IOException e){
+			msg = e.getMessage();
+		}
+		assertEquals("Tipo inválido", msg);
 	}
 	
 	@Test

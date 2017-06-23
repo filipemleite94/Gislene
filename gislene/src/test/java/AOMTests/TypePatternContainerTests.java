@@ -11,7 +11,7 @@ import org.mockito.Mockito;
 import AOM.AccountabilityType;
 import AOM.PropertyType;
 import AOM.TypePatternContainer;
-import AOM.TypePatternListener;
+import AOM.ITypePatternListener;
 
 public class TypePatternContainerTests {
 	
@@ -68,8 +68,8 @@ public class TypePatternContainerTests {
 	
 	@Test
 	public void testManagingListeneters(){
-		TypePatternListener listener = Mockito.mock(TypePatternListener.class);
-		TypePatternListener listener2 = Mockito.mock(TypePatternListener.class);
+		ITypePatternListener listener = Mockito.mock(ITypePatternListener.class);
+		ITypePatternListener listener2 = Mockito.mock(ITypePatternListener.class);
 		assertTrue(typeContainer.addListener(listener));
 		assertFalse(typeContainer.addListener(listener));
 		assertTrue(typeContainer.getTypeListeners().contains(listener));
@@ -83,8 +83,8 @@ public class TypePatternContainerTests {
 
 	@Test
 	public void testDeleteContainer() throws IOException{
-		TypePatternListener listener = Mockito.mock(TypePatternListener.class);
-		TypePatternListener listener2 = Mockito.mock(TypePatternListener.class);
+		ITypePatternListener listener = Mockito.mock(ITypePatternListener.class);
+		ITypePatternListener listener2 = Mockito.mock(ITypePatternListener.class);
 		PropertyType pType = Mockito.mock(PropertyType.class);
 		AccountabilityType aType = Mockito.mock(AccountabilityType.class);
 		
@@ -113,8 +113,8 @@ public class TypePatternContainerTests {
 	public void testManagingPropertyListenerVerifying() throws IOException{
 		PropertyType pType = Mockito.mock(PropertyType.class);
 		PropertyType pType2 = Mockito.mock(PropertyType.class);		
-		TypePatternListener listener = Mockito.mock(TypePatternListener.class);
-		TypePatternListener listener2 = Mockito.mock(TypePatternListener.class);
+		ITypePatternListener listener = Mockito.mock(ITypePatternListener.class);
+		ITypePatternListener listener2 = Mockito.mock(ITypePatternListener.class);
 		typeContainer.addPropertyType(pType);
 		typeContainer.addListener(listener);
 		Mockito.verify(listener, Mockito.times(1)).addProperty(Mockito.isA(PropertyType.class));
@@ -135,8 +135,8 @@ public class TypePatternContainerTests {
 	public void testManagingAccountabilityTypeListenerVerifying() throws IOException{
 		AccountabilityType aType = Mockito.mock(AccountabilityType.class);
 		AccountabilityType aType2 = Mockito.mock(AccountabilityType.class);		
-		TypePatternListener listener = Mockito.mock(TypePatternListener.class);
-		TypePatternListener listener2 = Mockito.mock(TypePatternListener.class);
+		ITypePatternListener listener = Mockito.mock(ITypePatternListener.class);
+		ITypePatternListener listener2 = Mockito.mock(ITypePatternListener.class);
 		typeContainer.addAccountabilityType(aType);
 		typeContainer.addListener(listener);
 		Mockito.verify(listener, Mockito.times(1)).addAccountability(Mockito.isA(AccountabilityType.class));

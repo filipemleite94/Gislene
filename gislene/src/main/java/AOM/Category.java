@@ -1,6 +1,8 @@
 package AOM;
 
-public class Category extends TypePatternContainer{
+import COMM.IStorableObject;
+
+public class Category extends TypePatternContainer implements IStorableObject{	
 	public Category(String name){
 		super(name);
 	}

@@ -12,7 +12,7 @@ import AOM.Accountability;
 import AOM.AccountabilityType;
 import AOM.Property;
 import AOM.PropertyType;
-import AOM.TypePatternListener;
+import AOM.ITypePatternListener;
 import AOM.eClassMap;
 
 public class TypePatternImplementationTests {
@@ -25,9 +25,9 @@ public class TypePatternImplementationTests {
 	Accountability account;
 	String parentName = "fooParent";
 	String childName = "fooChild";
-	TypePatternListener mockParent;
-	TypePatternListener mockListenerAccept;
-	TypePatternListener mockListenerReject;
+	ITypePatternListener mockParent;
+	ITypePatternListener mockListenerAccept;
+	ITypePatternListener mockListenerReject;
 	
 	@Before
 	public void setUp() throws ClassNotFoundException{
@@ -39,13 +39,13 @@ public class TypePatternImplementationTests {
 		pType = new PropertyType(standardName, standardClassName);
 		
 		prop = new Property(pType);
-		mockParent = Mockito.mock(TypePatternListener.class);
+		mockParent = Mockito.mock(ITypePatternListener.class);
 		account = new Accountability(aType, mockParent);
 		
-		mockListenerReject = Mockito.mock(TypePatternListener.class);
+		mockListenerReject = Mockito.mock(ITypePatternListener.class);
 		Mockito.when(mockListenerReject.checkIfReciprocal(Mockito.isA(AccountabilityType.class))).thenReturn(false);
 		
-		mockListenerAccept = Mockito.mock(TypePatternListener.class);
+		mockListenerAccept = Mockito.mock(ITypePatternListener.class);
 		Mockito.when(mockParent.getName()).thenReturn(parentName);
 		Mockito.when(mockListenerAccept.getName()).thenReturn(childName);
 		Mockito.when(mockListenerAccept.checkIfReciprocal(Mockito.isA(AccountabilityType.class))).thenReturn(true);

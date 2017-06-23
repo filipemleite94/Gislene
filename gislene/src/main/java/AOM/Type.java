@@ -3,9 +3,13 @@ package AOM;
 import java.util.HashMap;
 import java.util.Iterator;
 
-public class Type extends TypePatternContainer implements TypePatternListener {
+import COMM.IStorableObject;
+
+public class Type extends TypePatternContainer implements ITypePatternListener, IStorableObject {
+	
 	private HashMap<PropertyType, Property> properties;
 	private HashMap<AccountabilityType, Accountability> accountabilities;
+	
 	private Category categoria;
 	
 	public Type(String name, Category categoria) {
@@ -45,7 +49,7 @@ public class Type extends TypePatternContainer implements TypePatternListener {
 	}
 
 	@Override
-	public boolean setAccountabilityChild(AccountabilityType aType, TypePatternListener child) {
+	public boolean setAccountabilityChild(AccountabilityType aType, ITypePatternListener child) {
 		Accountability account = accountabilities.get(aType);
 		return (account==null)? false:account.setChild(child);
 	}
@@ -56,7 +60,7 @@ public class Type extends TypePatternContainer implements TypePatternListener {
 	}
 	
 	@Override
-	public boolean loseChild(AccountabilityType aType, TypePatternListener lostChild){
+	public boolean loseChild(AccountabilityType aType, ITypePatternListener lostChild){
 		Accountability account = accountabilities.get(aType);
 		return (account==null)? false: account.setChild(null);
 	}

@@ -4,16 +4,16 @@ import java.util.HashSet;
 import java.util.Iterator;
 
 public abstract class TypePatternContainer {
-	protected final String name;
-	protected final HashSet<PropertyType> tiposDePropriedades;
-	protected final HashSet<AccountabilityType> tiposDeAccountability;
-	protected HashSet<TypePatternListener> listenerCollection;
+	protected String name;
+	protected HashSet<PropertyType> tiposDePropriedades;
+	protected HashSet<AccountabilityType> tiposDeAccountability;
+	protected HashSet<ITypePatternListener> listenerCollection;
 	
 	public TypePatternContainer(String name){
 		this.name = name;
 		tiposDePropriedades = new HashSet<PropertyType>();
 		tiposDeAccountability = new HashSet<AccountabilityType>();
-		listenerCollection = new HashSet<TypePatternListener>();	
+		listenerCollection = new HashSet<ITypePatternListener>();	
 	}
 	
 	public String getName(){
@@ -22,7 +22,7 @@ public abstract class TypePatternContainer {
 	
 	public boolean addPropertyType(PropertyType propertyType){
 		if(tiposDePropriedades.add(propertyType)){
-			for(TypePatternListener pTypeListener:listenerCollection){
+			for(ITypePatternListener pTypeListener:listenerCollection){
 				pTypeListener.addProperty(propertyType);
 			}
 			propertyType.addContainer(this);
@@ -33,7 +33,7 @@ public abstract class TypePatternContainer {
 	
 	public boolean removePropertyType(PropertyType propertyType){
 		if(tiposDePropriedades.remove(propertyType)){		
-			for(TypePatternListener pTypeListener:listenerCollection){
+			for(ITypePatternListener pTypeListener:listenerCollection){
 				pTypeListener.removeProperty(propertyType);
 			}
 			return true;
@@ -43,7 +43,7 @@ public abstract class TypePatternContainer {
 
 	public boolean addAccountabilityType(AccountabilityType accountabilityType){
 		if(tiposDeAccountability.add(accountabilityType)){
-			for(TypePatternListener pTypeListener:listenerCollection){
+			for(ITypePatternListener pTypeListener:listenerCollection){
 				pTypeListener.addAccountability(accountabilityType);
 			}
 			accountabilityType.addContainer(this);
@@ -54,7 +54,7 @@ public abstract class TypePatternContainer {
 	
 	public boolean removeAccountabilityType(AccountabilityType accountabilityType){
 		if(tiposDeAccountability.remove(accountabilityType)){
-			for(TypePatternListener typeListener:listenerCollection){
+			for(ITypePatternListener typeListener:listenerCollection){
 				typeListener.removeAccountability(accountabilityType);
 			}
 			return true;
@@ -62,7 +62,7 @@ public abstract class TypePatternContainer {
 		return false;
 	}
 	
-	public boolean addListener(TypePatternListener typeListener){
+	public boolean addListener(ITypePatternListener typeListener){
 		if(listenerCollection.add(typeListener)){
 			for(PropertyType pType:tiposDePropriedades){
 				typeListener.addProperty(pType);
@@ -75,7 +75,7 @@ public abstract class TypePatternContainer {
 		return false;
 	}
 	
-	public boolean removeListener(TypePatternListener typeListener){
+	public boolean removeListener(ITypePatternListener typeListener){
 		if(listenerCollection.remove(typeListener)){
 			for(PropertyType pType:tiposDePropriedades){
 				typeListener.removeProperty(pType);
@@ -96,12 +96,12 @@ public abstract class TypePatternContainer {
 		return new HashSet<AccountabilityType>(tiposDeAccountability);
 	}
 	
-	public HashSet<TypePatternListener> getTypeListeners(){
-		return new HashSet<TypePatternListener>(listenerCollection);
+	public HashSet<ITypePatternListener> getTypeListeners(){
+		return new HashSet<ITypePatternListener>(listenerCollection);
 	}
 	
 	public void deleteContainer(){
-		Iterator<TypePatternListener> iterator = listenerCollection.iterator();
+		Iterator<ITypePatternListener> iterator = listenerCollection.iterator();
 		while(iterator.hasNext()){
 			iterator.next().erase();
 			iterator.remove();

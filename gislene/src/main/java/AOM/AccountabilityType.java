@@ -1,11 +1,14 @@
 package AOM;
 
-public class AccountabilityType extends TypePatternAbstract{
+import COMM.IStorableObject;
+
+public class AccountabilityType extends TypePatternAbstract implements IStorableObject{
 	private AccountabilityType reciprocal;
 	
-	public AccountabilityType(String name){
-		super(name);
+	public AccountabilityType(String nameVariable){
+		super(nameVariable);
 		reciprocal = this;
+		super.classe = this.getClass();
 	}
 	
 	public AccountabilityType getReciprocal(){
@@ -16,7 +19,7 @@ public class AccountabilityType extends TypePatternAbstract{
 		this.reciprocal = accountType;
 	}
 	
-	public boolean validate(TypePatternListener parent, TypePatternListener child){
+	public boolean validate(ITypePatternListener parent, ITypePatternListener child){
 		return child.checkIfReciprocal(this);
 	}
 }

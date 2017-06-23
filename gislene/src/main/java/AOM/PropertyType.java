@@ -1,19 +1,27 @@
 package AOM;
 
-public class PropertyType extends TypePatternAbstract{
-	private Class<?> propertyClass;
+import COMM.IStorableObject;
+
+public class PropertyType extends TypePatternAbstract implements IStorableObject{
 	private static eClassMap cMap = eClassMap.INSTANCE;
 	private eValidator validator;
+	private String typeName;
+	private Class<?> classe;
 	
-	public PropertyType(String name, String typeName) throws ClassNotFoundException{
-		super(name);
-		this.propertyClass = cMap.getClassGenerico(typeName);
+	public PropertyType(String nameVariable, String typeName) throws ClassNotFoundException{
+		super(nameVariable);
+		this.typeName = typeName;
 		this.validator = eValidator.INSTANCE;
+		classe = cMap.getClassGenerico(typeName);
+		super.classe = this.getClass();
+		
 	}
 	
 	public Object getValue(String value){
 		Object tempValue;
+		Class<?> propertyClass;
 		try{
+			propertyClass = cMap.getClassGenerico(typeName);
 			tempValue = validator.cast(value, propertyClass);
 		}catch(Exception E){
 			return null;
@@ -22,6 +30,6 @@ public class PropertyType extends TypePatternAbstract{
 	}
 	
 	public Class<?> getPropertyClass(){
-		return propertyClass;
+		return classe;
 	}
 }

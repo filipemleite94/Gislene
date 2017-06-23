@@ -4,15 +4,15 @@ import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 
-public enum eTypePatternContainerMapper {
-	CategoryMapperInstance(Category.class), TypeMapperInstance(Type.class);
+public enum eTypePatternContainerRootMapper {
+	CategoryMapperInstance(Category.class);
 	
 	private final Class<? extends TypePatternContainer> classe;
 	
 	private HashMap<String, TypePatternContainer> map;
 	private eTypePatternMapper typePatMap = eTypePatternMapper.TypePatternMapperInstance;
 	
-	private eTypePatternContainerMapper(Class<? extends TypePatternContainer> classe){
+	private eTypePatternContainerRootMapper(Class<? extends TypePatternContainer> classe){
 		map = new HashMap<String, TypePatternContainer>();
 		this.classe = classe;
 	}
@@ -37,6 +37,13 @@ public enum eTypePatternContainerMapper {
 		}
 		map.put(name, this.classe.getConstructor(String.class).newInstance(name));
 		return;
+	}
+	
+	public void inputContainer(TypePatternContainer container) throws IOException{
+		if(container.getClass()!=classe){
+			throw new IOException("Tipo inválido");
+		}
+		map.put(container.getName(), container);
 	}
 	
 	public boolean addPropertyType(String contKey, String propTypeKey) throws IOException{

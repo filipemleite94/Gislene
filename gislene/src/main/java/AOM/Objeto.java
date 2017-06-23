@@ -2,14 +2,16 @@ package AOM;
 
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Iterator;
 
-public class Objeto implements TypePatternListener {
+import COMM.IStorableObject;
+
+public class Objeto implements ITypePatternListener, IStorableObject {
 	private final String name;
 	private Geo posicao;
 	private HashMap<PropertyType, Property> properties;
 	private HashMap<AccountabilityType, Accountability> accountabilities;
+	
 	private Type tipo;
 	
 	public Objeto(String name, String posicao, Type tipo) throws IOException{
@@ -30,7 +32,7 @@ public class Objeto implements TypePatternListener {
 	}
 
 	@Override
-	public boolean addProperty(PropertyType pType) {
+	public boolean addProperty(PropertyType pType){
 		if(properties.containsKey(pType)){
 			return false;
 		}
@@ -39,7 +41,7 @@ public class Objeto implements TypePatternListener {
 	}
 
 	@Override
-	public boolean setProperty(PropertyType pType, String value) {
+	public boolean setProperty(PropertyType pType, String value){
 		Property prop = properties.get(pType);
 		return (prop==null)? false: prop.setValue(value);
 	}
@@ -59,7 +61,7 @@ public class Objeto implements TypePatternListener {
 	}
 
 	@Override
-	public boolean setAccountabilityChild(AccountabilityType aType, TypePatternListener child) {
+	public boolean setAccountabilityChild(AccountabilityType aType, ITypePatternListener child) {
 		Accountability account = accountabilities.get(aType);
 		return (account==null)? false:account.setChild(child);
 	}
@@ -70,7 +72,7 @@ public class Objeto implements TypePatternListener {
 	}
 	
 	@Override
-	public boolean loseChild(AccountabilityType aType, TypePatternListener lostChild){
+	public boolean loseChild(AccountabilityType aType, ITypePatternListener lostChild){
 		Accountability account = accountabilities.get(aType);
 		return (account==null)? false: account.setChild(null);
 	}

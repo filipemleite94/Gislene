@@ -1,6 +1,6 @@
 package Integration;
 
-import gislene.GPSManager;
+import OldBD.GPSManager;
 
 public class FireBirdComm implements IDataBaseComm {
 	GPSManager firebirdDB;

@@ -1,16 +1,18 @@
 package AOM;
 
-public class Property {
+import COMM.IStorableObject;
+
+public class Property implements IStorableObject {
 	private Object value;
-	private final String name;
-	private final Class<?> classe;
-	private final PropertyType pType;
+	private String name;
+	private PropertyType pType;
+	private Class<?> classe;
 	
 	public Property(PropertyType pType){
-		this.pType = pType;
 		classe = pType.getPropertyClass();
 		value = pType.getValue("");
-		name = pType.getName();
+		name = pType.getNameVariable();
+		this.pType = pType;
 	}
 	
 	public Class<?> getClasse(){

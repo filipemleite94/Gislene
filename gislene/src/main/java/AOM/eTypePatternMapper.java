@@ -8,21 +8,19 @@ public enum eTypePatternMapper {
 	
 	HashMap<String, PropertyType> typeMap;
 	HashMap<String, AccountabilityType> accountMap;
-	eTypePatternContainerMapper TypeMapper;
-	eTypePatternContainerMapper CategoryMapper;
+	eTypePatternContainerRootMapper TypeMapper;
+	eTypePatternContainerRootMapper CategoryMapper;
 	
 	private eTypePatternMapper(){
 		typeMap = new HashMap<String, PropertyType>();
 		accountMap = new HashMap<String, AccountabilityType>();
-		TypeMapper = eTypePatternContainerMapper.TypeMapperInstance;
-		CategoryMapper = eTypePatternContainerMapper.CategoryMapperInstance;
+		CategoryMapper = eTypePatternContainerRootMapper.CategoryMapperInstance;
 	}
 	
 	public void clearMaps(){
 		typeMap = new HashMap<String, PropertyType>();
 		accountMap = new HashMap<String, AccountabilityType>();
-		TypeMapper = eTypePatternContainerMapper.TypeMapperInstance;
-		CategoryMapper = eTypePatternContainerMapper.CategoryMapperInstance;
+		CategoryMapper = eTypePatternContainerRootMapper.CategoryMapperInstance;
 	}
 	
 	public void putPropertyType(String name, String typeName) throws IOException, ClassNotFoundException{
