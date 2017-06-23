@@ -1,7 +1,9 @@
 package COMM;
 
+import com.sleepycat.je.DatabaseException;
+
 public interface IProxy {
 	public Long getID();
-	public IStorableObject costruct();
-	public void store(IStorableObject object);
+	public IStorableObject construct() throws ClassNotFoundException, DatabaseException;
+	public boolean store(IStorableObject object);
 }

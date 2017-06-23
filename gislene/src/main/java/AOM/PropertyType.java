@@ -17,6 +17,10 @@ public class PropertyType extends TypePatternAbstract implements IStorableObject
 		
 	}
 	
+	public String getClassName(){
+		return typeName;
+	}
+	
 	public Object getValue(String value){
 		Object tempValue;
 		Class<?> propertyClass;

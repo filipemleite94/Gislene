@@ -44,14 +44,13 @@ public class PType implements IProxy{
 	}
 
 	@Override
-	public IStorableObject costruct() {
+	public IStorableObject construct() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public void store(IStorableObject object) {
-		// TODO Auto-generated method stub
-		
+	public boolean store(IStorableObject object) {
+		return false;
 	}
 }

@@ -24,18 +24,21 @@ public class PPropertyType implements IProxy {
 	public PPropertyType(){}
 	
 	public PPropertyType(PropertyType propertyType){
-		
+		name = propertyType.getNameVariable();
+		className = propertyType.getClassName();
 	}
 
 	@Override
-	public IStorableObject costruct() {
-		// TODO Auto-generated method stub
-		return null;
+	public IStorableObject construct() throws ClassNotFoundException {
+		PropertyType pType = new PropertyType(name, className);
+		return pType;
 	}
 
 	@Override
-	public void store(IStorableObject object) {
-		// TODO Auto-generated method stub
-		
+	public boolean store(IStorableObject object) {
+		PropertyType pType = (PropertyType) object;
+		name = pType.getNameVariable();
+		className = pType.getClassName();
+		return true;
 	}
 }

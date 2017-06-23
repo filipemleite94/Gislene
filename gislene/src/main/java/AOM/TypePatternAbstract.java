@@ -14,10 +14,6 @@ public abstract class TypePatternAbstract {
 		listenerContainer = new HashSet<TypePatternContainer>();
 	}
 	
-	public String getName(){
-		return null;
-	}
-	
 	public String getNameVariable(){
 		return this.nameVariable;
 	}

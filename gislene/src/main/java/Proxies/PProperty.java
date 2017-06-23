@@ -1,5 +1,6 @@
 package Proxies;
 
+import com.sleepycat.je.DatabaseException;
 import com.sleepycat.persist.model.DeleteAction;
 import com.sleepycat.persist.model.Entity;
 import com.sleepycat.persist.model.PrimaryKey;
@@ -7,8 +8,10 @@ import com.sleepycat.persist.model.Relationship;
 import com.sleepycat.persist.model.SecondaryKey;
 
 import AOM.Property;
+import AOM.PropertyType;
 import COMM.IProxy;
 import COMM.IStorableObject;
+import COMM.eProxyClassMap;
 
 @Entity
 public class PProperty implements IProxy{
@@ -27,18 +30,24 @@ public class PProperty implements IProxy{
 	public PProperty(){}
 
 	public PProperty(Property property){
-		
+		propertyType = eProxyClassMap.propertyTypeMap.getProxy(property.getPropertyType()).getID();
+		value = property.getValue().toString();
 	}
 	
 	@Override
-	public IStorableObject costruct() {
-		// TODO Auto-generated method stub
-		return null;
+	public IStorableObject construct() throws DatabaseException {
+		PropertyType pType = eProxyClassMap.propertyTypeMap.getObject(propertyType);
+		if(pType!=null){
+			return new Property(pType);
+		}
+		throw new DatabaseException("PropertyType relacionada não foi gravada");
 	}
 
 	@Override
-	public void store(IStorableObject object) {
-		// TODO Auto-generated method stub
-		
+	public boolean store(IStorableObject object) {
+		Property property = (Property) object;
+		propertyType = eProxyClassMap.propertyTypeMap.getProxy(property.getPropertyType()).getID();
+		value = property.getValue().toString();
+		return true;
 	};
 }

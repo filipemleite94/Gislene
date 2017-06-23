@@ -27,6 +27,10 @@ public class Property implements IStorableObject {
 		return value;
 	}
 	
+	public PropertyType getPropertyType(){
+		return pType;
+	}
+	
 	public boolean setValue(String valueString){
 		Object tempValue;
 		tempValue = pType.getValue(valueString);

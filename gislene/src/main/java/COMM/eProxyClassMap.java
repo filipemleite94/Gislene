@@ -61,7 +61,7 @@ public abstract class eProxyClassMap {
 		typeMap = null;
 	}
 	
-	public static void restart(ICommManager manager) throws DatabaseException{		
+	public static void restart(ICommManager manager) throws DatabaseException, ClassNotFoundException{		
 		accountabilityMap = new Map<PAccountability, Accountability>(manager.getIComm(PAccountability.class));
 		accountabilityTypeMap = new Map<PAccountabilityType, AccountabilityType>(manager.getIComm(PAccountabilityType.class));
 		categoryMap = new Map<PCategory,Category>(manager.getIComm(PCategory.class));

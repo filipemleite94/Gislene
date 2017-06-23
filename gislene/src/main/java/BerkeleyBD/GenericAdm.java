@@ -1,5 +1,6 @@
 package BerkeleyBD;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 
 import com.sleepycat.je.DatabaseException;
@@ -50,6 +51,7 @@ public class GenericAdm<T extends IProxy> implements IComm<T>{
     public void put(T thing) throws DatabaseException{
     	getTransaction();
     	key.put(txn, thing);
+    	terminate();
     	return;
     }
     
@@ -79,6 +81,12 @@ public class GenericAdm<T extends IProxy> implements IComm<T>{
     	return;
     }
     
+    public void remove(Long primaryKey) throws DatabaseException{
+    	getTransaction();
+    	key.delete(primaryKey);
+    	return;
+    }
+    
     public boolean contains(Long key) throws DatabaseException{
     	return this.key.contains(key);
     }
@@ -98,12 +106,70 @@ public class GenericAdm<T extends IProxy> implements IComm<T>{
 		terminate();
 	}
 
+	@Override
+	public void storeInDBNoOverwrite(T proxy) throws DatabaseException{
+		getTransaction();
+		if(key.putNoOverwrite(txn, proxy)){
+			throw new DatabaseException("Objeto já existe no DB");
+		};
+	}
 
 	@Override
 	public T getUpdateFromDataBase(T proxy) throws DatabaseException {
 		T ans = get(proxy.getID()); 
 		terminate();
 		return ans;
+	}
+
+
+	@Override
+	public T getFromID(Long key) throws DatabaseException {
+		return get(key);
+	}
+	
+	@Override
+	public void deleteFromDB(Long key) throws DatabaseException{
+		remove(key);
+		terminate();
+	}
+
+	@Override
+	public void deleteEverything() throws DatabaseException {
+		deleteAll();
+		terminate();
+	}
+	
+	@Override
+	public Long getUnusedKey() throws DatabaseException {
+		T object = null;
+		Long ansKey;
+		try {
+			object.getClass().getConstructor().newInstance();
+		} catch (InstantiationException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalArgumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InvocationTargetException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NoSuchMethodException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SecurityException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		put(object);
+		terminate();
+		ansKey = object.getID();
+		remove(ansKey);
+		terminate();
+		return ansKey;
 	}
 
 }

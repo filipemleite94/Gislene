@@ -9,13 +9,14 @@ import com.sleepycat.persist.model.SecondaryKey;
 import AOM.AccountabilityType;
 import COMM.IProxy;
 import COMM.IStorableObject;
+import COMM.eProxyClassMap;
 
 @Entity
 public class PAccountabilityType implements IProxy {
 	@PrimaryKey(sequence = "seq")
 	private Long ID;
 	
-	@SecondaryKey(relate = Relationship.MANY_TO_MANY, relatedEntity = PAccountability.class
+	@SecondaryKey(relate = Relationship.ONE_TO_ONE, relatedEntity = PAccountability.class
 			, onRelatedEntityDelete = DeleteAction.NULLIFY)
 	private Long reciprocal;
 	
@@ -28,18 +29,18 @@ public class PAccountabilityType implements IProxy {
 	public PAccountabilityType(){}
 	
 	public PAccountabilityType(AccountabilityType accountabilityType){
-		
+		reciprocal = eProxyClassMap.accountabilityTypeMap.getProxy(accountabilityType).getID();
+		name = accountabilityType.getNameVariable();
 	};
 	
 	@Override
-	public IStorableObject costruct() {
+	public IStorableObject construct() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public void store(IStorableObject object) {
-		// TODO Auto-generated method stub
-		
+	public boolean store(IStorableObject object) {
+		return false;
 	};
 }
