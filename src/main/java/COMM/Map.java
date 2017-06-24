@@ -9,7 +9,7 @@ public class Map<P extends IProxy, O extends IStorableObject>{
 	HashMap<P, O> mapObject = new HashMap<P,O>();
 	HashMap<O, P> mapProxy = new HashMap<O, P>();
 	HashMap<Long, O> mapKeyObject = new HashMap<Long, O>();
-	IComm comm;
+	IComm<P> comm;
 	
 	public Map(IComm comm) throws DatabaseException, ClassNotFoundException{
 		ArrayList<P> everything = comm.getEverythingFromTheDatabase();
@@ -21,6 +21,7 @@ public class Map<P extends IProxy, O extends IStorableObject>{
 			mapObject.put(iterator, object);
 			mapKeyObject.put(iterator.getID(), object);
 			mapProxy.put(object, iterator);
+			KeyGenerator.setID(iterator.getID());
 		}
 	}
 	
@@ -46,17 +47,24 @@ public class Map<P extends IProxy, O extends IStorableObject>{
 		return object;
 	}
 	
-	public void store(O object){
+	public void stage(O object){
 		P proxy;
 		proxy = mapProxy.get(object);
 		if(proxy == null){
 			proxy = (P) eProxyClassMap.getNewProxy(object);
 			mapObject.put(proxy, object);
 			mapProxy.put(object, proxy);
+			mapKeyObject.put(proxy.getID(), object);
 		}
 	}
 	
-	public Long getNewKey() throws DatabaseException{
-		return comm.getUnusedKey();
+	public void persist(O object) throws DatabaseException{
+		P proxy;
+		proxy = mapProxy.get(object);
+		if(proxy!=null){
+			comm.persistInDatabase(proxy);
+		}else{
+			throw new DatabaseException("Proxy not found, perhaps it was not staged?");
+		}
 	}
 }

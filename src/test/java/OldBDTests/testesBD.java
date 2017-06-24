@@ -15,7 +15,7 @@ import OldBD.GPSManager;
 
 public class testesBD {
 	
-	GPSManager DBM;
+	/*GPSManager DBM;
 	
 	@Before
 	public void init () {
@@ -80,5 +80,5 @@ public class testesBD {
 	    	assertFalse(resultSet.getString("Nome").equals("objeto1"));
 	    }
 		//DBM.Show_RegisteredObjects ();
-	}
+	}*/
 }

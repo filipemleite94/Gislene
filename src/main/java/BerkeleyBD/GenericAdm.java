@@ -138,38 +138,5 @@ public class GenericAdm<T extends IProxy> implements IComm<T>{
 		deleteAll();
 		terminate();
 	}
-	
-	@Override
-	public Long getUnusedKey() throws DatabaseException {
-		T object = null;
-		Long ansKey;
-		try {
-			object.getClass().getConstructor().newInstance();
-		} catch (InstantiationException e) {
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IllegalArgumentException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (InvocationTargetException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (NoSuchMethodException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SecurityException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		put(object);
-		terminate();
-		ansKey = object.getID();
-		remove(ansKey);
-		terminate();
-		return ansKey;
-	}
 
 }

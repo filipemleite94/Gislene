@@ -12,10 +12,11 @@ import com.sleepycat.persist.model.SecondaryKey;
 import AOM.Objeto;
 import COMM.IProxy;
 import COMM.IStorableObject;
+import COMM.KeyGenerator;
 
 @Entity
 public class PObjeto implements IProxy{
-	@PrimaryKey(sequence = "seq")
+	@PrimaryKey
 	Long ID;
 	@SecondaryKey(relate = Relationship.MANY_TO_ONE, relatedEntity = PType.class
 			, onRelatedEntityDelete = DeleteAction.NULLIFY)
@@ -27,14 +28,24 @@ public class PObjeto implements IProxy{
 			, onRelatedEntityDelete = DeleteAction.NULLIFY)
 	private Long accountabilities;
 	
+	@Override
 	public Long getID(){
 		return ID;
 	};
 	
-	public PObjeto(){}
+	@Override
+	public void setID(){
+		this.ID = KeyGenerator.getKey();
+	}
+	
+	public PObjeto(){
+		if(ID==null){
+			setID();
+		}
+	}
 	
 	public PObjeto(Objeto objeto){
-		
+		setID();
 	}
 
 	@Override

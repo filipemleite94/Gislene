@@ -12,10 +12,11 @@ import com.sleepycat.persist.model.SecondaryKey;
 import AOM.Type;
 import COMM.IProxy;
 import COMM.IStorableObject;
+import COMM.KeyGenerator;
 
 @Entity
 public class PType implements IProxy{
-	@PrimaryKey(sequence = "seq")
+	@PrimaryKey
 	private Long ID;
 	
 	@SecondaryKey(relate = Relationship.MANY_TO_ONE, relatedEntity = PProperty.class
@@ -33,19 +34,28 @@ public class PType implements IProxy{
 			, onRelatedEntityDelete = DeleteAction.NULLIFY)
 	private Set<Long> accountabilityTypes = new HashSet<Long>();
 	
+	@Override
 	public Long getID(){
 		return ID;
 	};
 	
-	public PType(){}
+	@Override
+	public void setID(){
+		this.ID = KeyGenerator.getKey();
+	}
+	
+	public PType(){
+		if(ID==null){
+			setID();
+		}
+	}
 	
 	public PType (Type type){
-		
+		setID();
 	}
 
 	@Override
 	public IStorableObject construct() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

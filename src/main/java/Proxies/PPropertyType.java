@@ -8,23 +8,35 @@ import com.sleepycat.persist.model.SecondaryKey;
 import AOM.PropertyType;
 import COMM.IProxy;
 import COMM.IStorableObject;
+import COMM.KeyGenerator;
 
 @Entity
 public class PPropertyType implements IProxy {
-	@PrimaryKey(sequence = "seq")
+	@PrimaryKey
 	private Long ID;
 	
 	private String name;
 	private String className;
 	
+	@Override
 	public Long getID(){
 		return ID;
 	};
 	
-	public PPropertyType(){}
+	@Override
+	public void setID(){
+		this.ID = KeyGenerator.getKey();
+	}
+	
+	public PPropertyType(){
+		if(ID==null){
+			setID();
+		}
+	}
 	
 	public PPropertyType(PropertyType propertyType){
-		name = propertyType.getNameVariable();
+		setID();
+		name = propertyType.getName();
 		className = propertyType.getClassName();
 	}
 
@@ -37,7 +49,7 @@ public class PPropertyType implements IProxy {
 	@Override
 	public boolean store(IStorableObject object) {
 		PropertyType pType = (PropertyType) object;
-		name = pType.getNameVariable();
+		name = pType.getName();
 		className = pType.getClassName();
 		return true;
 	}

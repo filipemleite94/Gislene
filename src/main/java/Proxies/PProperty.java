@@ -11,11 +11,12 @@ import AOM.Property;
 import AOM.PropertyType;
 import COMM.IProxy;
 import COMM.IStorableObject;
+import COMM.KeyGenerator;
 import COMM.eProxyClassMap;
 
 @Entity
 public class PProperty implements IProxy{
-	@PrimaryKey(sequence = "seq")
+	@PrimaryKey
 	private Long ID;
 	@SecondaryKey(relate = Relationship.MANY_TO_ONE, relatedEntity = PPropertyType.class
 			, onRelatedEntityDelete = DeleteAction.NULLIFY)
@@ -23,13 +24,24 @@ public class PProperty implements IProxy{
 	
 	String value;
 	
+	@Override
 	public Long getID(){
 		return ID;
 	};
 	
-	public PProperty(){}
+	@Override
+	public void setID(){
+		this.ID = KeyGenerator.getKey();
+	}
+	
+	public PProperty(){
+		if(ID==null){
+			setID();
+		}
+	}
 
 	public PProperty(Property property){
+		setID();
 		propertyType = eProxyClassMap.propertyTypeMap.getProxy(property.getPropertyType()).getID();
 		value = property.getValue().toString();
 	}

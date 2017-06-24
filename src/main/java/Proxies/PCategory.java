@@ -12,10 +12,11 @@ import com.sleepycat.persist.model.SecondaryKey;
 import AOM.Category;
 import COMM.IProxy;
 import COMM.IStorableObject;
+import COMM.KeyGenerator;
 
 @Entity
 public class PCategory implements IProxy{
-	@PrimaryKey(sequence = "seq")
+	@PrimaryKey
 	private Long ID;
 	@SecondaryKey(relate = Relationship.ONE_TO_MANY, relatedEntity = PPropertyType.class
 			, onRelatedEntityDelete = DeleteAction.NULLIFY)
@@ -24,14 +25,24 @@ public class PCategory implements IProxy{
 			, onRelatedEntityDelete = DeleteAction.NULLIFY)
 	private Set<Long> types = new HashSet<Long>();
 	
+	@Override
 	public Long getID(){
 		return ID;
 	};
 	
-	public PCategory(){}
+	@Override
+	public void setID(){
+		this.ID = KeyGenerator.getKey();
+	}
+	
+	public PCategory(){
+		if(ID==null){
+			setID();
+		}
+	}
 	
 	public PCategory(Category category){
-		
+		setID();
 	}
 	
 	@Override

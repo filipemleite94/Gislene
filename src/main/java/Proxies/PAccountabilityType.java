@@ -9,11 +9,12 @@ import com.sleepycat.persist.model.SecondaryKey;
 import AOM.AccountabilityType;
 import COMM.IProxy;
 import COMM.IStorableObject;
+import COMM.KeyGenerator;
 import COMM.eProxyClassMap;
 
 @Entity
 public class PAccountabilityType implements IProxy {
-	@PrimaryKey(sequence = "seq")
+	@PrimaryKey
 	private Long ID;
 	
 	@SecondaryKey(relate = Relationship.ONE_TO_ONE, relatedEntity = PAccountability.class
@@ -22,15 +23,26 @@ public class PAccountabilityType implements IProxy {
 	
 	private String name;
 	
+	@Override
 	public Long getID(){
 		return ID;
 	};
 	
-	public PAccountabilityType(){}
+	@Override
+	public void setID(){
+		this.ID = KeyGenerator.getKey();
+	}
+	
+	public PAccountabilityType(){
+		if(ID==null){
+			setID();
+		}
+	}
 	
 	public PAccountabilityType(AccountabilityType accountabilityType){
+		setID();
 		reciprocal = eProxyClassMap.accountabilityTypeMap.getProxy(accountabilityType).getID();
-		name = accountabilityType.getNameVariable();
+		name = accountabilityType.getName();
 	};
 	
 	@Override

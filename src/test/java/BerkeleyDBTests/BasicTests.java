@@ -46,9 +46,9 @@ public class BasicTests {
 		GenericAdm<PPropertyType> ptAdm = (GenericAdm<PPropertyType>) keyHandler.getIComm(PPropertyType.class);
 		assertEquals(0,ptAdm.getAll().size());
 		PPropertyType ppType = new PPropertyType();
-		assertNull(ppType.getID());
+		assertNotNull(ppType.getID());
+		ppType.setID();
 		ptAdm.persistInDatabase(ppType);
 		assertEquals(ppType.getID(), ptAdm.getAll().get(0).getID());
 	}
-	
 }

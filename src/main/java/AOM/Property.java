@@ -11,7 +11,7 @@ public class Property implements IStorableObject {
 	public Property(PropertyType pType){
 		classe = pType.getPropertyClass();
 		value = pType.getValue("");
-		name = pType.getNameVariable();
+		name = pType.getName();
 		this.pType = pType;
 	}
 	

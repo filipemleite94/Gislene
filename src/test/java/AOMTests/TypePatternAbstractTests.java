@@ -23,8 +23,8 @@ public class TypePatternAbstractTests {
 	
 	@Test
 	public void testBasicCreation(){
-		assertTrue(pType.getNameVariable().equals("foo"));
-		assertTrue(aType.getNameVariable().equals("foo"));
+		assertTrue(pType.getName().equals("foo"));
+		assertTrue(aType.getName().equals("foo"));
 		assertEquals(eClassMap.INSTANCE.stringClass, pType.getPropertyClass());
 		assertEquals("foo2", pType.getValue("foo2"));
 		assertEquals(aType, aType.getReciprocal());

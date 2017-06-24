@@ -12,7 +12,7 @@ public class Accountability implements IStorableObject {
 	public Accountability(AccountabilityType accountType, ITypePatternListener parent){
 		this.parent = parent;
 		this.accountType = accountType;
-		this.name = accountType.nameVariable;
+		this.name = accountType.name;
 		child = null;
 	}
 	

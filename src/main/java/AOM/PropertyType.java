@@ -36,4 +36,19 @@ public class PropertyType extends TypePatternAbstract implements IStorableObject
 	public Class<?> getPropertyClass(){
 		return classe;
 	}
+	
+	@Override
+	public boolean equals(Object obj){
+		if(!(obj instanceof PropertyType)||obj==null){
+			return false;
+		}
+		else{
+			return name.equals(((PropertyType) obj).getName())&&typeName.equals(((PropertyType) obj).getClassName());
+		}
+	}
+	
+	@Override
+	public int hashCode(){
+		return name.hashCode() + classe.hashCode();
+	}
 }

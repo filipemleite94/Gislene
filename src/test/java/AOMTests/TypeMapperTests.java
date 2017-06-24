@@ -40,7 +40,7 @@ public class TypeMapperTests {
 		assertEquals("Inexistent PropertyType", msg);
 		msg = null;
 		propTypeMapper.putPropertyType("foo", eClassMap.INSTANCE.booleanName);
-		assertEquals("foo", propTypeMapper.getPropertyType("foo").getNameVariable());
+		assertEquals("foo", propTypeMapper.getPropertyType("foo").getName());
 		try{
 			propTypeMapper.putPropertyType("foo", eClassMap.INSTANCE.booleanName);
 		}catch(IOException e){
@@ -89,7 +89,7 @@ public class TypeMapperTests {
 		assertEquals("Inexistent AccountabilityType", msg);
 		msg = null;
 		propTypeMapper.putAccountabilityType("foo");
-		assertEquals("foo", propTypeMapper.getAccountabilityType("foo").getNameVariable());
+		assertEquals("foo", propTypeMapper.getAccountabilityType("foo").getName());
 		try{
 			propTypeMapper.putAccountabilityType("foo");
 		}catch(IOException e){

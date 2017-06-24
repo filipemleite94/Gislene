@@ -4,18 +4,17 @@ import java.util.HashSet;
 import java.util.Iterator;
 
 public abstract class TypePatternAbstract {
-	
-	protected String nameVariable;
+	protected final String name;
 	protected HashSet<TypePatternContainer> listenerContainer;
-	Class<?> classe;
+	protected Class<?> classe;
 	
-	public TypePatternAbstract(String nameVariable){
-		this.nameVariable = nameVariable;
+	public TypePatternAbstract(String name){
+		this.name = name;
 		listenerContainer = new HashSet<TypePatternContainer>();
 	}
 	
-	public String getNameVariable(){
-		return this.nameVariable;
+	public String getName(){
+		return this.name;
 	}
 	
 	public boolean addContainer(TypePatternContainer container){
@@ -34,12 +33,12 @@ public abstract class TypePatternAbstract {
 	
 	public void deleteType(){
 		Iterator<TypePatternContainer> iterator = listenerContainer.iterator();
-		if(classe==PropertyType.class){
+		if(this.getClass()==PropertyType.class){
 			while(iterator.hasNext()){
 				iterator.next().removePropertyType((PropertyType)this);
 			}		
 		}else{
-			if(classe == AccountabilityType.class){
+			if(this.getClass() == AccountabilityType.class){
 				while(iterator.hasNext()){
 					iterator.next().removeAccountabilityType((AccountabilityType)this);
 				}	
