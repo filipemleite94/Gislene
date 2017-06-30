@@ -42,7 +42,7 @@ public abstract class eProxyClassMap {
 		if(object.getClass() == Property.class){
 			return new PProperty((Property)object);
 		}
-		if(object.getClass() == PPropertyType.class){
+		if(object.getClass() == PropertyType.class){
 			return new PPropertyType((PropertyType)object);
 		}
 		if(object.getClass() == Type.class){
