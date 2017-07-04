@@ -6,7 +6,7 @@ import static org.junit.Assert.*;
 import java.lang.reflect.InvocationTargetException;
 
 import org.junit.Test;
-public class ValidatorTests {
+public class ValidatorTest {
 	eValidator validator = eValidator.INSTANCE;
 	
 	

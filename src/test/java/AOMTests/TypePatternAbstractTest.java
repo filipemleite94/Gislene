@@ -11,7 +11,7 @@ import AOM.PropertyType;
 import AOM.TypePatternContainer;
 import AOM.eClassMap;
 
-public class TypePatternAbstractTests {
+public class TypePatternAbstractTest {
 	PropertyType pType;
 	AccountabilityType aType;
 

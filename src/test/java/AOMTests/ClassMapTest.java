@@ -6,7 +6,7 @@ import org.junit.Test;
 
 import AOM.eClassMap;
 
-public class ClassMapTests {
+public class ClassMapTest {
 	eClassMap classMap = eClassMap.INSTANCE;
 	
 	@Test

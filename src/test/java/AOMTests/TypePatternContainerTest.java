@@ -13,7 +13,7 @@ import AOM.PropertyType;
 import AOM.TypePatternContainer;
 import AOM.ITypePatternListener;
 
-public class TypePatternContainerTests {
+public class TypePatternContainerTest {
 	
 	private class MockPropertyTypeContainer extends TypePatternContainer{
 		public MockPropertyTypeContainer(String name) {

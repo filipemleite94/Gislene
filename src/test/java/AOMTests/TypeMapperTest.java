@@ -15,7 +15,7 @@ import AOM.TypePatternContainer;
 import AOM.eClassMap;
 import AOM.eTypePatternMapper;
 
-public class TypeMapperTests {
+public class TypeMapperTest {
 	private static eTypePatternMapper propTypeMapper = 
 			eTypePatternMapper.TypePatternMapperInstance;
 	

@@ -15,7 +15,7 @@ import BerkeleyBD.*;
 import COMM.ICommManager;
 import Proxies.*;
 
-public class BasicTests {
+public class BasicTest {
 	static ICommManager keyHandler;
 	
 	private static void purgeDirectory(File dir) {

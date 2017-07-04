@@ -15,7 +15,7 @@ import AOM.PropertyType;
 import AOM.ITypePatternListener;
 import AOM.eClassMap;
 
-public class TypePatternImplementationTests {
+public class TypePatternImplementationTest {
 	String standardName = "foo";
 	
 	Property prop;

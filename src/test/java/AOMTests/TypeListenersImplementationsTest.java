@@ -18,7 +18,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-public class TypeListenersImplementationsTests {
+public class TypeListenersImplementationsTest {
 	private Objeto objeto;
 	private Type type;
 	private String pos;

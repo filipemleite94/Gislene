@@ -17,7 +17,7 @@ import AOM.eClassMap;
 import AOM.eTypePatternContainerRootMapper;
 import AOM.eTypePatternMapper;
 
-public class TypePatternContainerRootMapperTests {
+public class TypePatternContainerRootMapperTest {
 	private static eTypePatternContainerRootMapper typeContMap = eTypePatternContainerRootMapper.CategoryMapperInstance;
 	private static eTypePatternMapper typeMap = eTypePatternMapper.TypePatternMapperInstance;
 	private PropertyType pType;
