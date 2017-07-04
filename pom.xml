@@ -8,11 +8,6 @@
   
    <dependencies>
  	<!-- https://mvnrepository.com/artifact/berkeleydb/je -->
-	<dependency>
-	    <groupId>berkeleydb</groupId>
-	    <artifactId>je</artifactId>
-	    <version>3.2.76</version>
-	</dependency>
   
   	<dependency>
   		<groupId>org.firebirdsql.jdbc</groupId>
@@ -42,6 +37,7 @@
 	</dependency>
   </dependencies>
   
+<<<<<<< HEAD
   <build>
   
 
@@ -56,6 +52,27 @@
 		        </configuration>
 		    </plugin>
             
+=======
+   <reporting>
+      <plugins>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-checkstyle-plugin</artifactId>
+          <version>2.17</version>
+          <reportSets>
+            <reportSet>
+              <reports>
+                <report>checkstyle</report>
+              </reports>
+            </reportSet>
+          </reportSets>
+        </plugin>
+      </plugins>
+    </reporting>
+    
+    <build>
+		<plugins>
+>>>>>>> ff6d4c5f98e7694a8f415cea0b8a23a5dda1790b
 			<plugin>
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
@@ -89,7 +106,11 @@
 										<limit implementation="org.jacoco.report.check.Limit">
 											<counter>COMPLEXITY</counter>
 											<value>COVEREDRATIO</value>
+<<<<<<< HEAD
 											<minimum>0.10</minimum>
+=======
+											<minimum>0.90</minimum>
+>>>>>>> ff6d4c5f98e7694a8f415cea0b8a23a5dda1790b
 										</limit>
 									</limits>
 								</rule>
@@ -98,6 +119,7 @@
 					</execution>
 				</executions>
 			</plugin>
+<<<<<<< HEAD
 
 		</plugins>
   </build>
@@ -122,4 +144,8 @@
      </plugins>
    </reporting>
   
+=======
+		</plugins>
+  	</build>
+>>>>>>> ff6d4c5f98e7694a8f415cea0b8a23a5dda1790b
 </project>
