@@ -1,6 +1,5 @@
 package BerkeleyBD;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 
 import com.sleepycat.je.DatabaseException;
@@ -13,6 +12,7 @@ import com.sleepycat.persist.PrimaryIndex;
 import COMM.IComm;
 import COMM.IProxy;
 
+@SuppressWarnings(value = "unused")
 public class GenericAdm<T extends IProxy> implements IComm<T>{
 	private PrimaryIndex<Long, T> key;
 	
@@ -94,7 +94,6 @@ public class GenericAdm<T extends IProxy> implements IComm<T>{
 
 	@Override
 	public ArrayList<T> getEverythingFromTheDatabase() throws DatabaseException{
-		ArrayList<T> asn = getAll();
 		terminate();
 		return getAll();
 	}

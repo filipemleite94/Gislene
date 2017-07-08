@@ -3,7 +3,7 @@
   <groupId>comp18</groupId>
   <artifactId>gislene</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-  <name>gislene</name>
+  <name>Gis</name>
   <properties>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>

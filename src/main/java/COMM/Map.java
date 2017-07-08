@@ -5,6 +5,7 @@ import java.util.HashMap;
 
 import com.sleepycat.je.DatabaseException;
 
+@SuppressWarnings(value = "all")
 public class Map<P extends IProxy, O extends IStorableObject>{
 	HashMap<P, O> mapObject = new HashMap<P,O>();
 	HashMap<O, P> mapProxy = new HashMap<O, P>();

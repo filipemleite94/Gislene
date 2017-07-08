@@ -7,20 +7,17 @@ import java.util.Iterator;
 import com.sleepycat.je.DatabaseException;
 import com.sleepycat.je.Environment;
 import com.sleepycat.je.EnvironmentConfig;
-import com.sleepycat.je.LockMode;
-import com.sleepycat.je.Transaction;
-import com.sleepycat.persist.EntityCursor;
 import com.sleepycat.persist.EntityStore;
 import com.sleepycat.persist.PrimaryIndex;
 import com.sleepycat.persist.StoreConfig;
 
-import AOM.Category;
 import AOM.Objeto;
 import AOM.Type;
 import COMM.IComm;
 import COMM.ICommManager;
 import COMM.IProxy;
 
+@SuppressWarnings(value = "unchecked")
 public class KeyManager implements ICommManager{
 	private HashMap<PrimaryIndex<Long, ? extends IProxy>, GenericAdm<? extends IProxy>> keySet;
 	
@@ -29,7 +26,6 @@ public class KeyManager implements ICommManager{
 	
 	private Environment env = null;
 	private EnvironmentConfig envConfig = null;
-	private StoreConfig storeConfig = null;
 	private EntityStore store = null;
 	
 	public KeyManager(){};

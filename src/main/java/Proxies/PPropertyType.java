@@ -2,8 +2,6 @@ package Proxies;
 
 import com.sleepycat.persist.model.Entity;
 import com.sleepycat.persist.model.PrimaryKey;
-import com.sleepycat.persist.model.Relationship;
-import com.sleepycat.persist.model.SecondaryKey;
 
 import AOM.PropertyType;
 import COMM.IProxy;

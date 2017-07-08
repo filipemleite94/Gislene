@@ -102,8 +102,3 @@ function addRectangle(e) {
 };
   var rectangle = new google.maps.Rectangle(rectOptions);
 } 
-
-  
-
-
-

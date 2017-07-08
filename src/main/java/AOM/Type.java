@@ -5,6 +5,7 @@ import java.util.Iterator;
 
 import COMM.IStorableObject;
 
+@SuppressWarnings(value = { "unused" })
 public class Type extends TypePatternContainer implements ITypePatternListener, IStorableObject {
 	
 	private HashMap<PropertyType, Property> properties;

@@ -13,6 +13,7 @@ import COMM.KeyGenerator;
 import COMM.eProxyClassMap;
 
 @Entity
+@SuppressWarnings(value = "unused")
 public class PAccountabilityType implements IProxy {
 	@PrimaryKey
 	private Long ID;
