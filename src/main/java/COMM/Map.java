@@ -1,5 +1,6 @@
 package COMM;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -12,7 +13,7 @@ public class Map<P extends IProxy, O extends IStorableObject>{
 	HashMap<Long, O> mapKeyObject = new HashMap<Long, O>();
 	IComm<P> comm;
 	
-	public Map(IComm comm) throws DatabaseException, ClassNotFoundException{
+	public Map(IComm comm) throws DatabaseException, ClassNotFoundException, IOException{
 		ArrayList<P> everything = comm.getEverythingFromTheDatabase();
 		O object;
 		this.comm = comm;
@@ -38,7 +39,7 @@ public class Map<P extends IProxy, O extends IStorableObject>{
 		return mapProxy.get(object);
 	}
 	
-	public O constructObject(P proxy) throws ClassNotFoundException, DatabaseException{
+	public O constructObject(P proxy) throws ClassNotFoundException, DatabaseException, IOException{
 		O object;
 		object = (O)proxy.construct();
 		if(mapObject.get(proxy) == null){
@@ -48,7 +49,7 @@ public class Map<P extends IProxy, O extends IStorableObject>{
 		return object;
 	}
 	
-	public void stage(O object){
+	public void stage(O object) throws IOException{
 		P proxy;
 		proxy = mapProxy.get(object);
 		if(proxy == null){

@@ -20,6 +20,11 @@ public class Accountability implements IStorableObject {
 		return name;
 	}
 	
+	public AccountabilityType getAccountabilityType(){
+		return accountType;
+	}
+	
+	
 	public ITypePatternListener getParent(){
 		return parent;
 	}

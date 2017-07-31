@@ -1,6 +1,7 @@
 package AOM;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 
 import COMM.IStorableObject;
@@ -80,5 +81,25 @@ public class Type extends TypePatternContainer implements ITypePatternListener, 
 			iterator.remove();
 		}
 		accountabilities = null;
+	}
+	
+	@Override
+	public HashSet<Property> getProperties() {
+		return new HashSet<Property>(properties.values());
+	}
+	
+	@Override
+	public HashSet<Accountability> getAccountabilities() {
+		return new HashSet<Accountability>(accountabilities.values());
+	}
+	
+	@Override
+	public void addProperty(Property property) {
+		properties.put(property.getPropertyType(), property);
+	}
+
+	@Override
+	public void addAccountability(Accountability accountability) {
+		accountabilities.put(accountability.getAccountabilityType(), accountability);
 	}
 }

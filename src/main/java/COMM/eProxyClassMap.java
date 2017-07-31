@@ -1,5 +1,7 @@
 package COMM;
 
+import java.io.IOException;
+
 import com.sleepycat.je.DatabaseException;
 
 import AOM.Accountability;
@@ -26,7 +28,7 @@ public abstract class eProxyClassMap {
 	public static Map<PPropertyType, PropertyType> propertyTypeMap;
 	public static Map<PType, Type> typeMap;
 	
-	public static IProxy getNewProxy(IStorableObject object){
+	public static IProxy getNewProxy(IStorableObject object) throws IOException{
 		if(object.getClass() == Accountability.class){
 			return new PAccountability((Accountability)object);
 		}
@@ -61,7 +63,7 @@ public abstract class eProxyClassMap {
 		typeMap = null;
 	}
 	
-	public static void restart(ICommManager manager) throws DatabaseException, ClassNotFoundException{		
+	public static void restart(ICommManager manager) throws DatabaseException, ClassNotFoundException, IOException{		
 		accountabilityMap = new Map<PAccountability, Accountability>(manager.getIComm(PAccountability.class));
 		accountabilityTypeMap = new Map<PAccountabilityType, AccountabilityType>(manager.getIComm(PAccountabilityType.class));
 		categoryMap = new Map<PCategory,Category>(manager.getIComm(PCategory.class));

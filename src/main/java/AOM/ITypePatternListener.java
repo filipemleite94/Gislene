@@ -1,5 +1,7 @@
 package AOM;
 
+import java.util.HashSet;
+
 public interface ITypePatternListener {
 	public String getName();
 	
@@ -15,6 +17,11 @@ public interface ITypePatternListener {
 	public boolean loseChild(AccountabilityType aType, ITypePatternListener lostChild);
 	
 	public boolean checkIfReciprocal(AccountabilityType accountabilityType);
+	
+	public HashSet<Property> getProperties();
+	public HashSet<Accountability> getAccountabilities();
+	public void addProperty(Property property);
+	public void addAccountability(Accountability accountability);
 	
 	public void erase();
 }

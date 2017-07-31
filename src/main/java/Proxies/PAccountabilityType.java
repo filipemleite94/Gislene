@@ -1,5 +1,6 @@
 package Proxies;
 
+import com.sleepycat.je.DatabaseException;
 import com.sleepycat.persist.model.DeleteAction;
 import com.sleepycat.persist.model.Entity;
 import com.sleepycat.persist.model.PrimaryKey;
@@ -47,13 +48,18 @@ public class PAccountabilityType implements IProxy {
 	};
 	
 	@Override
-	public IStorableObject construct() {
-		// TODO Auto-generated method stub
-		return null;
+	public IStorableObject construct() throws DatabaseException {
+		AccountabilityType accountType;
+		accountType = new AccountabilityType(name);
+		accountType.setReciprocal(eProxyClassMap.accountabilityTypeMap.getObject(reciprocal));
+		return accountType;
 	}
 
 	@Override
 	public boolean store(IStorableObject object) {
-		return false;
+		AccountabilityType accountabilityType = (AccountabilityType) object;
+		reciprocal = eProxyClassMap.accountabilityTypeMap.getProxy(accountabilityType).getID();
+		name = accountabilityType.getName();
+		return true;
 	};
 }
