@@ -14,6 +14,7 @@ import com.sleepycat.persist.model.SecondaryKey;
 import AOM.Accountability;
 import AOM.Objeto;
 import AOM.Property;
+import AOM.Type;
 import COMM.IProxy;
 import COMM.IStorableObject;
 import COMM.KeyGenerator;
@@ -61,7 +62,7 @@ public class PObjeto implements IProxy{
 		
 		name = objeto.getName();
 		posicao = objeto.getGeo().getPointsString();
-		type = eProxyClassMap.objetoMap.getProxy(objeto).getID();
+		type = eProxyClassMap.typeMap.getProxy((Type)objeto.getContainer()).getID();
 		
 		for(Property iterator : propertiesSet){
 			properties.add(propertyMap.getProxy(iterator).getID());
@@ -101,7 +102,7 @@ public class PObjeto implements IProxy{
 		}catch(IOException e){
 			e.printStackTrace();
 		}
-		type = eProxyClassMap.objetoMap.getProxy(objeto).getID();
+		type = eProxyClassMap.typeMap.getProxy((Type)objeto.getContainer()).getID();
 		
 		for(Property iterator : propertiesSet){
 			properties.add(propertyMap.getProxy(iterator).getID());

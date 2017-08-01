@@ -102,4 +102,9 @@ public class Type extends TypePatternContainer implements ITypePatternListener, 
 	public void addAccountability(Accountability accountability) {
 		accountabilities.put(accountability.getAccountabilityType(), accountability);
 	}
+	
+	@Override
+	public TypePatternContainer getContainer() {
+		return categoria;
+	}
 }

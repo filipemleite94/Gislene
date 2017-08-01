@@ -115,4 +115,9 @@ public class Objeto implements ITypePatternListener, IStorableObject {
 	public void addAccountability(Accountability accountability) {
 		accountabilities.put(accountability.getAccountabilityType(), accountability);
 	}
+
+	@Override
+	public TypePatternContainer getContainer() {
+		return tipo;
+	}
 }

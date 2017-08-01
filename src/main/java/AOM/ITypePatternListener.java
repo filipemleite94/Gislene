@@ -22,6 +22,7 @@ public interface ITypePatternListener {
 	public HashSet<Accountability> getAccountabilities();
 	public void addProperty(Property property);
 	public void addAccountability(Accountability accountability);
+	public TypePatternContainer getContainer();
 	
 	public void erase();
 }
