@@ -7,7 +7,6 @@ import java.util.Iterator;
 
 import COMM.IStorableObject;
 
-@SuppressWarnings(value = { "unused" })
 public class Objeto implements ITypePatternListener, IStorableObject {
 	private final String name;
 	private Geo posicao;

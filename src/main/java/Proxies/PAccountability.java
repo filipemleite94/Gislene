@@ -13,14 +13,12 @@ import com.sleepycat.persist.model.SecondaryKey;
 import AOM.Accountability;
 import AOM.AccountabilityType;
 import AOM.ITypePatternListener;
-import AOM.Objeto;
-import AOM.Type;
 import COMM.IProxy;
 import COMM.IStorableObject;
 import COMM.KeyGenerator;
 import COMM.Map;
 import COMM.aInterfacesMap;
-import COMM.eProxyClassMap;
+import COMM.aProxyClassMap;
 
 @Entity
 public class PAccountability implements IProxy{
@@ -54,7 +52,7 @@ public class PAccountability implements IProxy{
 	
 	public PAccountability(Accountability account){
 		long i, size;
-		Map<PAccountabilityType, AccountabilityType> accountTypeMap = eProxyClassMap.accountabilityTypeMap;
+		Map<PAccountabilityType, AccountabilityType> accountTypeMap = aProxyClassMap.accountabilityTypeMap;
 		accountabilityType = accountTypeMap.getProxy
 				((AccountabilityType)account.getAccountabilityType()).getID();
 		//For now, it will only be one son
@@ -71,7 +69,7 @@ public class PAccountability implements IProxy{
 		AccountabilityType accountType;
 		ITypePatternListener child, parent;
 		Accountability account;
-		accountType = eProxyClassMap.accountabilityTypeMap.getObject(accountabilityType);
+		accountType = aProxyClassMap.accountabilityTypeMap.getObject(accountabilityType);
 		child = aInterfacesMap.getITypePatternListener(this.child.iterator().next());
 		parent = aInterfacesMap.getITypePatternListener(this.parent);
 		account = new Accountability(accountType, parent);
@@ -83,7 +81,7 @@ public class PAccountability implements IProxy{
 	public boolean store(IStorableObject object) {
 		long i, size;
 		Accountability account = (Accountability) object;
-		Map<PAccountabilityType, AccountabilityType> accountTypeMap = eProxyClassMap.accountabilityTypeMap;
+		Map<PAccountabilityType, AccountabilityType> accountTypeMap = aProxyClassMap.accountabilityTypeMap;
 		
 		accountabilityType = accountTypeMap.getProxy
 				((AccountabilityType)account.getAccountabilityType()).getID();

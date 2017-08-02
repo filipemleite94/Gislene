@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import java.io.File;
 
 import org.junit.After;
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -35,8 +36,15 @@ public class BasicTest {
 		keyHandler.InitiateComm(f, "Tests");
 	}
 	
+	@Before
+	public void updateSetUp() throws DatabaseException{
+		keyHandler = new KeyManager();
+		keyHandler.InitiateComm(new File(".//Teste//"), "Tests");
+	}
+	
 	@After
 	public void cleanUp() throws DatabaseException{
+		keyHandler.cleanUpDatabase();
 		keyHandler.terminateComm();
 	}
 	
@@ -50,4 +58,38 @@ public class BasicTest {
 		ptAdm.persistInDatabase(ppType);
 		assertEquals(ppType.getID(), ptAdm.getAll().get(0).getID());
 	}
+	
+	@Test
+	public void containsTest() throws DatabaseException{
+		GenericAdm<PPropertyType> ptAdm = (GenericAdm<PPropertyType>) keyHandler.getIComm(PPropertyType.class);
+		assertFalse(ptAdm.contains((long) 0));
+		PPropertyType ppType = new PPropertyType();
+		PPropertyType ppType2 = new PPropertyType();
+		assertNotEquals(ppType.getID(), ppType2.getID());
+		ptAdm.persistInDatabase(ppType);
+		ptAdm.persistInDatabase(ppType2);
+		assertTrue(ptAdm.contains(ppType.getID()));
+		assertTrue(ptAdm.contains(ppType2.getID()));
+	}
+	
+	@Test
+	public void managementTest() throws DatabaseException{
+		GenericAdm<PPropertyType> ptAdm = (GenericAdm<PPropertyType>) keyHandler.getIComm(PPropertyType.class);
+		assertFalse(ptAdm.contains((long) 0));
+		PPropertyType ppType = new PPropertyType();
+		PPropertyType ppType2 = new PPropertyType();
+		assertNotEquals(ppType.getID(), ppType2.getID());
+		ptAdm.persistInDatabase(ppType);
+		ptAdm.persistInDatabase(ppType2);
+		ptAdm.deleteFromDB(ppType2.getID());
+		assertFalse(ptAdm.contains(ppType2.getID()));
+		ppType2 = new PPropertyType();
+		assertFalse(ptAdm.contains(ppType2.getID()));
+		ptAdm.persistInDatabase(ppType2);
+		assertTrue(ptAdm.contains(ppType2.getID()));
+		ptAdm.deleteEverything();
+		assertFalse(ptAdm.contains(ppType.getID()));
+		assertFalse(ptAdm.contains(ppType2.getID()));
+	}
+	
 }

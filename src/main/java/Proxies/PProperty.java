@@ -12,7 +12,7 @@ import AOM.PropertyType;
 import COMM.IProxy;
 import COMM.IStorableObject;
 import COMM.KeyGenerator;
-import COMM.eProxyClassMap;
+import COMM.aProxyClassMap;
 
 @Entity
 public class PProperty implements IProxy{
@@ -42,13 +42,13 @@ public class PProperty implements IProxy{
 
 	public PProperty(Property property){
 		setID();
-		propertyType = eProxyClassMap.propertyTypeMap.getProxy(property.getPropertyType()).getID();
+		propertyType = aProxyClassMap.propertyTypeMap.getProxy(property.getPropertyType()).getID();
 		value = property.getValue().toString();
 	}
 	
 	@Override
 	public IStorableObject construct() throws DatabaseException {
-		PropertyType pType = eProxyClassMap.propertyTypeMap.getObject(propertyType);
+		PropertyType pType = aProxyClassMap.propertyTypeMap.getObject(propertyType);
 		if(pType!=null){
 			return new Property(pType);
 		}
@@ -58,7 +58,7 @@ public class PProperty implements IProxy{
 	@Override
 	public boolean store(IStorableObject object) {
 		Property property = (Property) object;
-		propertyType = eProxyClassMap.propertyTypeMap.getProxy(property.getPropertyType()).getID();
+		propertyType = aProxyClassMap.propertyTypeMap.getProxy(property.getPropertyType()).getID();
 		value = property.getValue().toString();
 		return true;
 	};

@@ -19,7 +19,7 @@ import COMM.IProxy;
 import COMM.IStorableObject;
 import COMM.KeyGenerator;
 import COMM.Map;
-import COMM.eProxyClassMap;
+import COMM.aProxyClassMap;
 
 @Entity
 public class PCategory implements IProxy{
@@ -54,9 +54,9 @@ public class PCategory implements IProxy{
 	}
 	
 	public PCategory(Category category){
-		Map<PPropertyType, PropertyType> pTypeMap = eProxyClassMap.propertyTypeMap;
-		Map<PAccountabilityType, AccountabilityType> aTypeMap = eProxyClassMap.accountabilityTypeMap;
-		Map<PType, Type> typeMap = eProxyClassMap.typeMap;
+		Map<PPropertyType, PropertyType> pTypeMap = aProxyClassMap.propertyTypeMap;
+		Map<PAccountabilityType, AccountabilityType> aTypeMap = aProxyClassMap.accountabilityTypeMap;
+		Map<PType, Type> typeMap = aProxyClassMap.typeMap;
 		
 		name = category.getName();
 		for(PropertyType iterator:category.getPropertyTypes()){
@@ -74,9 +74,9 @@ public class PCategory implements IProxy{
 	@Override
 	public IStorableObject construct() throws DatabaseException {
 		Category category = null;
-		Map<PPropertyType, PropertyType> pTypeMap = eProxyClassMap.propertyTypeMap;
-		Map<PAccountabilityType, AccountabilityType> aTypeMap = eProxyClassMap.accountabilityTypeMap;
-		Map<PType, Type> typeMap = eProxyClassMap.typeMap;
+		Map<PPropertyType, PropertyType> pTypeMap = aProxyClassMap.propertyTypeMap;
+		Map<PAccountabilityType, AccountabilityType> aTypeMap = aProxyClassMap.accountabilityTypeMap;
+		Map<PType, Type> typeMap = aProxyClassMap.typeMap;
 		
 		category = new Category(name);
 		
@@ -95,9 +95,9 @@ public class PCategory implements IProxy{
 
 	@Override
 	public boolean store(IStorableObject object) {
-		Map<PPropertyType, PropertyType> pTypeMap = eProxyClassMap.propertyTypeMap;
-		Map<PAccountabilityType, AccountabilityType> aTypeMap = eProxyClassMap.accountabilityTypeMap;
-		Map<PType, Type> typeMap = eProxyClassMap.typeMap;
+		Map<PPropertyType, PropertyType> pTypeMap = aProxyClassMap.propertyTypeMap;
+		Map<PAccountabilityType, AccountabilityType> aTypeMap = aProxyClassMap.accountabilityTypeMap;
+		Map<PType, Type> typeMap = aProxyClassMap.typeMap;
 		Category category = (Category) object;
 		name = category.getName();
 		for(PropertyType iterator:category.getPropertyTypes()){

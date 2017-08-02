@@ -1,7 +1,6 @@
 package Proxies;
 
 import java.util.HashSet;
-import java.util.Properties;
 import java.util.Set;
 
 import com.sleepycat.je.DatabaseException;
@@ -23,7 +22,7 @@ import COMM.IProxy;
 import COMM.IStorableObject;
 import COMM.KeyGenerator;
 import COMM.Map;
-import COMM.eProxyClassMap;
+import COMM.aProxyClassMap;
 
 @Entity
 public class PType implements IProxy{
@@ -67,14 +66,14 @@ public class PType implements IProxy{
 	}
 	
 	public PType (Type type){
-		Map<PPropertyType, PropertyType> pTypeMap = eProxyClassMap.propertyTypeMap;
-		Map<PAccountabilityType, AccountabilityType> aTypeMap = eProxyClassMap.accountabilityTypeMap;
-		Map<PObjeto, Objeto> objetoMap = eProxyClassMap.objetoMap;
-		Map<PProperty, Property> propertyMap = eProxyClassMap.propertyMap;
-		Map<PAccountability, Accountability> accountabilityMap = eProxyClassMap.accountabilityMap;
+		Map<PPropertyType, PropertyType> pTypeMap = aProxyClassMap.propertyTypeMap;
+		Map<PAccountabilityType, AccountabilityType> aTypeMap = aProxyClassMap.accountabilityTypeMap;
+		Map<PObjeto, Objeto> objetoMap = aProxyClassMap.objetoMap;
+		Map<PProperty, Property> propertyMap = aProxyClassMap.propertyMap;
+		Map<PAccountability, Accountability> accountabilityMap = aProxyClassMap.accountabilityMap;
 		
 		name = type.getName();
-		category = eProxyClassMap.categoryMap.getProxy((Category)type.getContainer()).getID();
+		category = aProxyClassMap.categoryMap.getProxy((Category)type.getContainer()).getID();
 		for(Property iterator:type.getProperties()){
 			properties.add(propertyMap.getProxy(iterator).getID());
 		}
@@ -96,13 +95,13 @@ public class PType implements IProxy{
 
 	@Override
 	public IStorableObject construct() throws DatabaseException {
-		Map<PPropertyType, PropertyType> pTypeMap = eProxyClassMap.propertyTypeMap;
-		Map<PAccountabilityType, AccountabilityType> aTypeMap = eProxyClassMap.accountabilityTypeMap;
-		Map<PObjeto, Objeto> objetoMap = eProxyClassMap.objetoMap;
-		Map<PProperty, Property> propertyMap = eProxyClassMap.propertyMap;
-		Map<PAccountability, Accountability> accountabilityMap = eProxyClassMap.accountabilityMap;
+		Map<PPropertyType, PropertyType> pTypeMap = aProxyClassMap.propertyTypeMap;
+		Map<PAccountabilityType, AccountabilityType> aTypeMap = aProxyClassMap.accountabilityTypeMap;
+		Map<PObjeto, Objeto> objetoMap = aProxyClassMap.objetoMap;
+		Map<PProperty, Property> propertyMap = aProxyClassMap.propertyMap;
+		Map<PAccountability, Accountability> accountabilityMap = aProxyClassMap.accountabilityMap;
 		
-		Type type = new Type(name, eProxyClassMap.categoryMap.getObject(category));
+		Type type = new Type(name, aProxyClassMap.categoryMap.getObject(category));
 		for(long iterator:properties){
 			type.addProperty(propertyMap.getObject(iterator));
 		}
@@ -125,11 +124,11 @@ public class PType implements IProxy{
 	@Override
 	public boolean store(IStorableObject object) {
 		Type type = (Type) object;
-		Map<PPropertyType, PropertyType> pTypeMap = eProxyClassMap.propertyTypeMap;
-		Map<PAccountabilityType, AccountabilityType> aTypeMap = eProxyClassMap.accountabilityTypeMap;
-		Map<PObjeto, Objeto> objetoMap = eProxyClassMap.objetoMap;
-		Map<PProperty, Property> propertyMap = eProxyClassMap.propertyMap;
-		Map<PAccountability, Accountability> accountabilityMap = eProxyClassMap.accountabilityMap;
+		Map<PPropertyType, PropertyType> pTypeMap = aProxyClassMap.propertyTypeMap;
+		Map<PAccountabilityType, AccountabilityType> aTypeMap = aProxyClassMap.accountabilityTypeMap;
+		Map<PObjeto, Objeto> objetoMap = aProxyClassMap.objetoMap;
+		Map<PProperty, Property> propertyMap = aProxyClassMap.propertyMap;
+		Map<PAccountability, Accountability> accountabilityMap = aProxyClassMap.accountabilityMap;
 		
 		name = type.getName();
 		

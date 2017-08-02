@@ -19,7 +19,7 @@ import Proxies.PProperty;
 import Proxies.PPropertyType;
 import Proxies.PType;
 
-public abstract class eProxyClassMap {
+public abstract class aProxyClassMap {
 	public static Map<PAccountability, Accountability> accountabilityMap;
 	public static Map<PAccountabilityType, AccountabilityType> accountabilityTypeMap;
 	public static Map<PCategory,Category> categoryMap;
@@ -28,27 +28,27 @@ public abstract class eProxyClassMap {
 	public static Map<PPropertyType, PropertyType> propertyTypeMap;
 	public static Map<PType, Type> typeMap;
 	
-	public static IProxy getNewProxy(IStorableObject object) throws IOException{
+	public static IProxy getNewProxy(IStorableObject object){
 		if(object.getClass() == Accountability.class){
-			return new PAccountability((Accountability)object);
+			return new PAccountability();
 		}
 		if(object.getClass() == AccountabilityType.class){
-			return new PAccountabilityType((AccountabilityType)object);
+			return new PAccountabilityType();
 		}
 		if(object.getClass() == Category.class){
-			return new PCategory((Category)object);
+			return new PCategory();
 		}
 		if(object.getClass() == Objeto.class){
-			return new PObjeto((Objeto)object);
+			return new PObjeto();
 		}
 		if(object.getClass() == Property.class){
-			return new PProperty((Property)object);
+			return new PProperty();
 		}
 		if(object.getClass() == PropertyType.class){
-			return new PPropertyType((PropertyType)object);
+			return new PPropertyType();
 		}
 		if(object.getClass() == Type.class){
-			return new PType((Type)object);
+			return new PType();
 		}
 		return null;
 	}

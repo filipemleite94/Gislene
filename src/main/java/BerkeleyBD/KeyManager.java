@@ -62,4 +62,15 @@ public class KeyManager implements ICommManager{
 		store.close();
 		env.close();
 	}
+
+	@Override
+	public void cleanUpDatabase() throws DatabaseException {
+		Iterator<GenericAdm<? extends IProxy>> ite = keySet.values().iterator();
+		GenericAdm<? extends IProxy> aux;
+		while(ite.hasNext()){
+			aux = ite.next();
+			aux.abort();
+			aux.deleteEverything();
+		}
+	}
 }

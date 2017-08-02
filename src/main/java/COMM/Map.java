@@ -53,7 +53,7 @@ public class Map<P extends IProxy, O extends IStorableObject>{
 		P proxy;
 		proxy = mapProxy.get(object);
 		if(proxy == null){
-			proxy = (P) eProxyClassMap.getNewProxy(object);
+			proxy = (P) aProxyClassMap.getNewProxy(object);
 			mapObject.put(proxy, object);
 			mapProxy.put(object, proxy);
 			mapKeyObject.put(proxy.getID(), object);
@@ -64,6 +64,7 @@ public class Map<P extends IProxy, O extends IStorableObject>{
 		P proxy;
 		proxy = mapProxy.get(object);
 		if(proxy!=null){
+			proxy.store(object);
 			comm.persistInDatabase(proxy);
 		}else{
 			throw new DatabaseException("Proxy not found, perhaps it was not staged?");
